@@ -1,0 +1,16 @@
+{
+  "NIGHTMOON-NUN_CHARACTER.title": "The Nun",
+  "NIGHTMOON-NUN_CHARACTER.titleObject": "the Nun",
+  "NIGHTMOON-NUN_CHARACTER.description": "A penitent sister who stores power in prayer.",
+  "NIGHTMOON-NUN_CHARACTER.pronounObject": "her",
+  "NIGHTMOON-NUN_CHARACTER.possessiveAdjective": "her",
+  "NIGHTMOON-NUN_CHARACTER.pronounPossessive": "hers",
+  "NIGHTMOON-NUN_CHARACTER.pronounSubject": "she",
+  "NIGHTMOON-NUN_CHARACTER.goldMonologue": "The offering is accepted.",
+  "NIGHTMOON-NUN_CHARACTER.eventDeathPrevention": "A final prayer keeps you standing.",
+  "NIGHTMOON-NUN_CHARACTER.aromaPrinciple": "incense",
+  "NIGHTMOON-NUN_CHARACTER.cardsModifierTitle": "Prayer",
+  "NIGHTMOON-NUN_CHARACTER.cardsModifierDescription": "Cards shaped by delayed blessings and confession.",
+  "NIGHTMOON-NUN_CHARACTER.banter.alive.endTurnPing": "...",
+  "NIGHTMOON-NUN_CHARACTER.banter.dead.endTurnPing": "..."
+}

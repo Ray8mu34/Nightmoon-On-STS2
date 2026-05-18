@@ -1,0 +1,18 @@
+# Ignore everything
+*
+
+# Track these directories
+!Design/
+!Design/**
+!NightMoon/
+!NightMoon/**
+
+# But ignore build artifacts and Godot internals inside NightMoon
+NightMoon/.godot/
+NightMoon/bin/
+NightMoon/obj/
+NightMoon/build_modsNightMoon/
+
+# Keep agent.md and .gitignore
+!.gitignore
+!agent.md
