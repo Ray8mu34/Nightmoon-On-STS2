@@ -20,9 +20,12 @@ public class NunDream() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Target
         {
             () => CombatState.CreateCard(ModelDb.Card<NunAttackPrayer>(), Owner),
             () => CombatState.CreateCard(ModelDb.Card<NunAngryPrayer>(), Owner),
+            () => CombatState.CreateCard(ModelDb.Card<NunDoomHaunt>(), Owner),
             () => CombatState.CreateCard(ModelDb.Card<NunDoomPrayer>(), Owner),
-            () => CombatState.CreateCard(ModelDb.Card<NunLifePrayer>(), Owner),
+            () => CombatState.CreateCard(ModelDb.Card<NunDevourPrayer>(), Owner),
+            () => CombatState.CreateCard(ModelDb.Card<NunDivinePunishment>(), Owner),
             () => CombatState.CreateCard(ModelDb.Card<NunManaPrayer>(), Owner),
+            () => CombatState.CreateCard(ModelDb.Card<NunRebirthPrayer>(), Owner),
             () => CombatState.CreateCard(ModelDb.Card<NunRepentPrayer>(), Owner),
             () => CombatState.CreateCard(ModelDb.Card<NunRetreatPrayer>(), Owner),
             () => CombatState.CreateCard(ModelDb.Card<NunShieldPrayer>(), Owner),

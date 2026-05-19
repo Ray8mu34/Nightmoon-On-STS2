@@ -22,9 +22,13 @@ public class NunDemonBlade() : NunCard(1, CardType.Power, CardRarity.Uncommon, T
         await PowerCmd.Apply<NunDemonBladePower>(
             choiceContext,
             Owner.Creature,
-            IsUpgraded ? 3m : 0m,
+            1m,
             Owner.Creature,
             this);
+
+        var power = Owner.Creature.GetPower<NunDemonBladePower>();
+        if (power != null && DynamicVars[typeof(NunDemonBladePower).Name].BaseValue > 0)
+            power.AddBonusDamage(DynamicVars[typeof(NunDemonBladePower).Name].BaseValue);
     }
 
     protected override void OnUpgrade()

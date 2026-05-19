@@ -153,7 +153,7 @@
   "NIGHTMOON-NUN_TWISTED_FUTURE.title": "Twisted Future",
   "NIGHTMOON-NUN_TWISTED_FUTURE.description": "Deal {Damage} damage.\nIf Confession is greater than 5, deal 4 additional damage.",
   "NIGHTMOON-NUN_REPENT_PRAYER.title": "Repent Prayer",
-  "NIGHTMOON-NUN_REPENT_PRAYER.description": "Prayer 3: Gain {NunConfessionPower} Confession.",
+  "NIGHTMOON-NUN_REPENT_PRAYER.description": "Prayer 3: Gain {NunConfessionPower} Confession and immediately trigger Confession once.",
   "NIGHTMOON-NUN_REDEMPTION.title": "Redemption",
   "NIGHTMOON-NUN_REDEMPTION.description": "Exhaust.\nTarget loses HP equal to your Confession.\nHalve your Confession.",
   "NIGHTMOON-NUN_STUDY.title": "Study",

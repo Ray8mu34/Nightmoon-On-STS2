@@ -19,6 +19,9 @@ public class NunLinkedCasting() : NunCard(1, CardType.Skill, CardRarity.Rare, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var existingPower = Owner.Creature.GetPower<NunLinkedCastingPower>();
+        existingPower?.QueueSelfTriggerSkip();
+
         await PowerCmd.Apply<NunLinkedCastingPower>(
             choiceContext,
             Owner.Creature,

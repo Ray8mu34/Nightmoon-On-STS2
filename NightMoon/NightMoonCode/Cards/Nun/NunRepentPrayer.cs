@@ -28,6 +28,10 @@ public class NunRepentPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Unc
                 confessionAmount * (entry?.ValueMultiplier ?? 1m),
                 Owner.Creature,
                 this);
+
+            var confessionPower = Owner.Creature.GetPower<NunConfessionPower>();
+            if (confessionPower is { Amount: > 0 })
+                await confessionPower.Trigger(choiceContext, confessionPower.Amount);
         });
 
         return entry;

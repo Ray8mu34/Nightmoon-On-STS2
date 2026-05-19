@@ -153,7 +153,7 @@
   "NIGHTMOON-NUN_TWISTED_FUTURE.title": "扭曲未来",
   "NIGHTMOON-NUN_TWISTED_FUTURE.description": "造成 {Damage} 点伤害。\n如果忏悔层数大于 5，再造成 4 点伤害。",
   "NIGHTMOON-NUN_REPENT_PRAYER.title": "悔过祷告",
-  "NIGHTMOON-NUN_REPENT_PRAYER.description": "祷告 3：获得 {NunConfessionPower} 层忏悔。",
+  "NIGHTMOON-NUN_REPENT_PRAYER.description": "祷告 3：获得 {NunConfessionPower} 层忏悔，并立刻触发一次忏悔效果。",
   "NIGHTMOON-NUN_REDEMPTION.title": "救赎",
   "NIGHTMOON-NUN_REDEMPTION.description": "消耗。\n目标失去等同于你忏悔层数的生命。\n你的忏悔层数减半。",
   "NIGHTMOON-NUN_STUDY.title": "钻研",

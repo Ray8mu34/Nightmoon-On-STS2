@@ -2,13 +2,23 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Random;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace NightMoon.NightMoonCode.Powers.Nun;
 
 public class NunDemonBladePower() : NunPower
 {
+    private decimal bonusDamage;
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public void AddBonusDamage(decimal amount)
+    {
+        if (amount > 0)
+            bonusDamage += amount;
+    }
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
@@ -16,18 +26,19 @@ public class NunDemonBladePower() : NunPower
             return;
 
         var combatState = Owner.CombatState;
-        var target = combatState?.HittableEnemies.FirstOrDefault();
-        if (target == null)
+        var enemies = combatState?.HittableEnemies.ToList();
+        if (enemies == null || enemies.Count == 0)
             return;
 
-        var damage = Math.Max(0, Owner.Player.RunState.TotalFloor / 5 + Amount);
+        var index = Owner.Player?.RunState?.Rng.Niche.NextInt(enemies.Count) ?? Rng.Chaotic.NextInt(enemies.Count);
+        var target = enemies[index];
+
+        var totalFloor = Owner.Player?.RunState?.TotalFloor ?? 0;
+        var damage = Math.Max(0m, totalFloor / 5m + bonusDamage);
         if (damage <= 0)
             return;
 
         Flash();
-        await DamageCmd.Attack(damage)
-            .Targeting(target)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Move, Owner, null);
     }
 }

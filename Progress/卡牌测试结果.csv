@@ -27,8 +27,8 @@
 忏悔录	NIGHTMOON-NUN_CONFESSION_RECORD	多张忏悔录的回合开始生命失去效果没有叠加，只叠加了忏悔层数	
 共鸣	NIGHTMOON-NUN_RESONANCE	效果正常，卡图描述有问题，目前是“获得{blick}点格挡，给予{weak}层虚弱”	
 着魔	NIGHTMOON-NUN_POSSESSED	1	
-联动施法	NIGHTMOON-NUN_LINKED_CASTING	联动施法打出时会直接触发该卡的buff，应该是结算顺序错了。buff是留给接下来2张的	
-生命护符	NIGHTMOON-NUN_LIFE_CHARM	数值太高了，改成3点生命	
+联动施法	NIGHTMOON-NUN_LINKED_CASTING	联动施法打出时会直接触发该卡的buff，应该是结算顺序错了。buff是留给接下来2张的	√
+生命护符	NIGHTMOON-NUN_LIFE_CHARM	数值太高了，改成3点生命	√
 刀盾相见	NIGHTMOON-NUN_BLADE_SHIELD	打出时卡住不结算，不影响游戏其余进程	√
 圣盾	NIGHTMOON-NUN_HOLY_SHIELD	效果正常，卡图描述有问题，目前是“获得{blick}点格挡，{artifact}层人工制品”	
 魔术	NIGHTMOON-NUN_MAGIC	1	
@@ -49,12 +49,12 @@
 预言	NIGHTMOON-NUN_PROPHECY	1	
 回忆	NIGHTMOON-NUN_MEMORY	1	
 水晶球	NIGHTMOON-NUN_CRYSTAL_BALL	卡面描述要删除“自动”二字	√
-睡梦	NIGHTMOON-NUN_DREAM	我不清楚当前的实现逻辑，在测试里一次rare的祷告卡都没有生成过。另外，不允许生成生命祷告	
+睡梦	NIGHTMOON-NUN_DREAM	我不清楚当前的实现逻辑，在测试里一次rare的祷告卡都没有生成过。另外，不允许生成生命祷告	√
 福音	NIGHTMOON-NUN_GOSPEL	1	
 圣盾祷告	NIGHTMOON-NUN_SHIELD_PRAYER		
-悔过祷告	NIGHTMOON-NUN_REPENT_PRAYER	没有实现立刻触发忏悔效果的功能。卡图描述也只有获得3层忏悔	
+悔过祷告	NIGHTMOON-NUN_REPENT_PRAYER	没有实现立刻触发忏悔效果的功能。卡图描述也只有获得3层忏悔	√
 捷径	NIGHTMOON-NUN_SHORTCUT	1	
-恶魔刀刃	NIGHTMOON-NUN_DEMON_BLADE	没有对应的能力图标，没有任何效果	
+恶魔刀刃	NIGHTMOON-NUN_DEMON_BLADE	没有对应的能力图标，没有任何效果	√
 法力如潮	NIGHTMOON-NUN_MANA_SURGE	1	
 救赎	NIGHTMOON-NUN_REDEMPTION	1	
 钻研	NIGHTMOON-NUN_STUDY	1	
