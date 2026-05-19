@@ -6,6 +6,8 @@
 !Design/**
 !NightMoon/
 !NightMoon/**
+!Progress/
+!Progress/**
 
 # Exclude build artifacts
 NightMoon/.godot/

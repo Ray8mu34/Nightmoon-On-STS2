@@ -18,13 +18,14 @@ public class NunSpiritStorm() : NunCard(1, CardType.Attack, CardRarity.Uncommon,
     {
         var target = cardPlay.Target!;
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(target)
-            .WithHitFx("vfx/vfx_attack_dark")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            target,
+            DynamicVars.Damage.BaseValue,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
 
-        // 击晕血量低于50%的敌人
         if (target.IsAlive && target.GetHpPercentRemaining() < 0.5)
         {
             await CreatureCmd.Stun(target, (string?)null);

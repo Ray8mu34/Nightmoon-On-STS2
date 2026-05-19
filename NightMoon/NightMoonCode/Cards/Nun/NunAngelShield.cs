@@ -10,7 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunAngelShield() : NunCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(9m, ValueProp.Unpowered)
+        new BlockVar(9m, (ValueProp)0)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [

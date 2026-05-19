@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunHolyShield() : NunCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(8m, ValueProp.Unpowered),
+        new BlockVar(8m, (ValueProp)0),
         new PowerVar<ArtifactPower>(1m)
     ];
 

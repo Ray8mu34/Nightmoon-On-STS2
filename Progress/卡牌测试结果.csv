@@ -1,0 +1,82 @@
+名称	对应字符串	说明（1表示完全实现）	修改完成与否
+打击	NIGHTMOON-NUN_STRIKE	1	
+防御	NIGHTMOON-NUN_DEFEND	吃不到敏捷的加成——当前全部"获得x点格挡"的卡片似乎都吃不到，应该是代码里没有写	
+忏悔	NIGHTMOON-NUN_CONFESSION	1	
+攻击祷告	NIGHTMOON-NUN_ATTACK_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
+退避祷告	NIGHTMOON-NUN_RETREAT_PRAYER	1	
+窥视未来	NIGHTMOON-NUN_PEEK_FUTURE	1	
+虔诚	NIGHTMOON-NUN_PIETY	1	
+修行	NIGHTMOON-NUN_PRACTICE	1	
+赞颂	NIGHTMOON-NUN_PRAISE	1	
+神圣打击	NIGHTMOON-NUN_HOLY_STRIKE	1	
+凝视	NIGHTMOON-NUN_GAZE	效果正常，卡图描述有问题，目前是“造成{damage}点伤害，给予{Vunlerable}层易伤”	
+默祷	NIGHTMOON-NUN_SILENT_PRAYER	1	
+刺杀	NIGHTMOON-NUN_ASSASSINATE	1	
+落石	NIGHTMOON-NUN_ROCKFALL	1	
+扭曲未来	NIGHTMOON-NUN_TWISTED_FUTURE	1	
+自然印记	NIGHTMOON-NUN_NATURE_MARK	卡面描述有问题，目前是“获得{Dexterity}点敏捷”	
+大雾	NIGHTMOON-NUN_FOG	1	
+以退为进	NIGHTMOON-NUN_FORWARD_RETREAT	1	
+灵感爆发	NIGHTMOON-NUN_INSPIRATION_BURST	1	
+沐浴圣水	NIGHTMOON-NUN_HOLY_WATER_BATH	有动画，但是没能烧掉诅咒。暂时不修，考虑改成消耗抽牌堆中的诅咒	
+天火祷告	NIGHTMOON-NUN_SKYFIRE_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
+愤怒祷告	NIGHTMOON-NUN_ANGRY_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
+厄运祷告	NIGHTMOON-NUN_DOOM_PRAYER	消耗已经在关键字段，无须在卡牌描述里单独写“消耗”	√
+天使庇护	NIGHTMOON-NUN_ANGEL_SHIELD	确实将复制洗入抽牌堆了，也占用了位置，但是抽牌堆的数字没更新（抽牌堆计数不认为这是一张卡？）	
+荆棘打击	NIGHTMOON-NUN_THORN_STRIKE	1	
+忏悔录	NIGHTMOON-NUN_CONFESSION_RECORD	多张忏悔录的回合开始生命失去效果没有叠加，只叠加了忏悔层数	
+共鸣	NIGHTMOON-NUN_RESONANCE	效果正常，卡图描述有问题，目前是“获得{blick}点格挡，给予{weak}层虚弱”	
+着魔	NIGHTMOON-NUN_POSSESSED	1	
+联动施法	NIGHTMOON-NUN_LINKED_CASTING	联动施法打出时会直接触发该卡的buff，应该是结算顺序错了。buff是留给接下来2张的	
+生命护符	NIGHTMOON-NUN_LIFE_CHARM	数值太高了，改成3点生命	
+刀盾相见	NIGHTMOON-NUN_BLADE_SHIELD	打出时卡住不结算，不影响游戏其余进程	√
+圣盾	NIGHTMOON-NUN_HOLY_SHIELD	效果正常，卡图描述有问题，目前是“获得{blick}点格挡，{artifact}层人工制品”	
+魔术	NIGHTMOON-NUN_MAGIC	1	
+法力祷告	NIGHTMOON-NUN_MANA_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
+迅捷祷告	NIGHTMOON-NUN_SWIFT_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
+厄运祷告	NIGHTMOON-NUN_DOOM_HAUNT	决定改名为“缠身祷告”	√
+生命祷告	NIGHTMOON-NUN_LIFE_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
+虚弱射线	NIGHTMOON-NUN_WEAK_RAY	功能正常，卡图描述有问题，目前的“对所有敌人造成{damage}点伤害，给予所有敌人{weak}层虚弱”	
+曙光降临	NIGHTMOON-NUN_DAWN	1	
+呵斥	NIGHTMOON-NUN_REBUKE	重做卡牌，现在太弱了。不再是卡组内，而是抽牌堆、弃牌堆、手牌、消耗堆中祷告牌数量的伤害	
+神圣净化	NIGHTMOON-NUN_HOLY_PURIFICATION	打出时卡住不结算，不影响游戏其余进程	√
+炸弹	NIGHTMOON-NUN_BOMB	1	
+献祭	NIGHTMOON-NUN_SACRIFICE	打出时卡住不结算，不影响游戏其余进程	√
+悼唁	NIGHTMOON-NUN_MOURNING	效果正常。去除描述里的升级后那段	√
+镜像	NIGHTMOON-NUN_MIRROR	1	
+忏悔长袍	NIGHTMOON-NUN_CONFESSION_ROBE	1	
+精神风暴	NIGHTMOON-NUN_SPIRIT_STORM	打出时卡住不结算，不影响游戏其余进程	√
+预言	NIGHTMOON-NUN_PROPHECY	1	
+回忆	NIGHTMOON-NUN_MEMORY	1	
+水晶球	NIGHTMOON-NUN_CRYSTAL_BALL	卡面描述要删除“自动”二字	√
+睡梦	NIGHTMOON-NUN_DREAM	我不清楚当前的实现逻辑，在测试里一次rare的祷告卡都没有生成过。另外，不允许生成生命祷告	
+福音	NIGHTMOON-NUN_GOSPEL	1	
+圣盾祷告	NIGHTMOON-NUN_SHIELD_PRAYER		
+悔过祷告	NIGHTMOON-NUN_REPENT_PRAYER	没有实现立刻触发忏悔效果的功能。卡图描述也只有获得3层忏悔	
+捷径	NIGHTMOON-NUN_SHORTCUT	1	
+恶魔刀刃	NIGHTMOON-NUN_DEMON_BLADE	没有对应的能力图标，没有任何效果	
+法力如潮	NIGHTMOON-NUN_MANA_SURGE	1	
+救赎	NIGHTMOON-NUN_REDEMPTION	1	
+钻研	NIGHTMOON-NUN_STUDY	1	
+神之手	NIGHTMOON-NUN_HAND_OF_GOD	当前是造成伤害而不是失去生命，要改成失去生命	
+末日灾祸	NIGHTMOON-NUN_DOOM_CALAMITY	1	
+光辉形态	NIGHTMOON-NUN_RADIANT_FORM	坚不可摧是sts1里的一个buff，在这一代似乎没有对应实现。坚不可摧x就是每回合失去生命不超过x，可以反编译去看看官方遗物BeatingRemnant.cs的实现	
+心灵绽放	NIGHTMOON-NUN_MIND_BLOOM	祷告牌确实重放了，哪怕是新生成的祷告牌也支持重放。但是没有给牌面添加“重放1”的字样，如果可以还是添加一下，虽然好像对新生成的添加很困难。如果发现有困难，还是不添加了把	
+最终希望	NIGHTMOON-NUN_FINAL_HOPE	效果实现了。但是需要添加消耗，否则太强大了	√
+业力沾身	NIGHTMOON-NUN_KARMA_STAIN	卡面描述有问题，不是减少同等层数，是减少2层	√
+神圣领域	NIGHTMOON-NUN_HOLY_AREA	1	
+神圣权杖	NIGHTMOON-NUN_DIVINE_SCEPTER	经过测试，打出后生效了，但是没有在“祷告区”看见任何相关提示	
+神圣庇护	NIGHTMOON-NUN_DIVINE_PROTECTION	卡片描述有误，当前是“获得{buff}层缓冲”	
+环绕不绝	NIGHTMOON-NUN_ENCIRCLING	1	
+至圣打击	NIGHTMOON-NUN_SACRED_STRIKE	打出时卡住不结算，不影响游戏其余进程	√
+复仇	NIGHTMOON-NUN_RETALIATION	打出时卡住不结算，不影响游戏其余进程	√
+天罚	NIGHTMOON-NUN_DIVINE_PUNISHMENT	1	
+生命汲取	NIGHTMOON-NUN_LIFE_DRAIN	1	
+神圣画像	NIGHTMOON-NUN_HOLY_IMAGE	有能力的buff图，但每次倒计时只增加了1层忏悔，而且多张倒计时时只触发一次，感觉实现逻辑完全不对	
+苦修	NIGHTMOON-NUN_PENANCE	1	
+深渊	NIGHTMOON-NUN_ABYSS	1	
+清算时刻	NIGHTMOON-NUN_SETTLEMENT_TIME	打出时卡住不结算，不影响游戏其余进程	√
+重生祷告	NIGHTMOON-NUN_REBIRTH_PRAYER	1	
+吞噬祷告	NIGHTMOON-NUN_DEVOUR_PRAYER	1	
+审判	NIGHTMOON-NUN_JUDGEMENT	打出时卡住，卡面描述有误，费用应该是1费而不是3费	√
+正义天平		未实现该卡牌	

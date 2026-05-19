@@ -12,7 +12,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunInspirationBurst() : NunCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(6m, ValueProp.Unpowered)
+        new BlockVar(6m, (ValueProp)0)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [

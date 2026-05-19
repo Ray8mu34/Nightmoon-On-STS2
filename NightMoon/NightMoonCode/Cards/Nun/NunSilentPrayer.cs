@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunSilentPrayer() : NunCard(0, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(3m, ValueProp.Unpowered)
+        new BlockVar(3m, (ValueProp)0)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [

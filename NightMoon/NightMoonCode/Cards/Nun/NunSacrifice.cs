@@ -15,15 +15,14 @@ public class NunSacrifice() : NunCard(2, CardType.Attack, CardRarity.Uncommon, T
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var target = cardPlay.Target!;
-        var hpBefore = target.CurrentHp;
+        await CreatureCmd.Damage(
+            choiceContext,
+            target,
+            DynamicVars.Damage.BaseValue,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(target)
-            .WithHitFx("vfx/vfx_attack_slash_heavy")
-            .Execute(choiceContext);
-
-        // 若斩杀，回复1能量
         if (target.IsDead)
         {
             await PlayerCmd.GainEnergy(1, Owner);

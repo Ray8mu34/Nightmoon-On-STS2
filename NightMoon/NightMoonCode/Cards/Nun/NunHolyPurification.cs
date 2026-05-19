@@ -18,11 +18,13 @@ public class NunHolyPurification() : NunCard(2, CardType.Attack, CardRarity.Unco
         var baseDamage = DynamicVars.Damage.BaseValue;
         var damage = target.GetHpPercentRemaining() < 0.3 ? baseDamage * 2 : baseDamage;
 
-        await DamageCmd.Attack(damage)
-            .FromCard(this)
-            .Targeting(target)
-            .WithHitFx("vfx/vfx_attack_slash_heavy")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            target,
+            damage,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()

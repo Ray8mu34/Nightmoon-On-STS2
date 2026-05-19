@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunResonance() : NunCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(11m, ValueProp.Unpowered),
+        new BlockVar(11m, (ValueProp)0),
         new PowerVar<WeakPower>(3m)
     ];
 

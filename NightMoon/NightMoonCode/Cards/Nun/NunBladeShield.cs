@@ -11,7 +11,7 @@ public class NunBladeShield() : NunCard(3, CardType.Attack, CardRarity.Uncommon,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(17m, ValueProp.Move),
-        new BlockVar(17m, ValueProp.Unpowered)
+        new BlockVar(17m, (ValueProp)0)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -20,11 +20,13 @@ public class NunBladeShield() : NunCard(3, CardType.Attack, CardRarity.Uncommon,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_slash_heavy")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            cardPlay.Target!,
+            DynamicVars.Damage.BaseValue,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
 
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
     }

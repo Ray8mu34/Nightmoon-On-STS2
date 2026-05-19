@@ -10,7 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunFinalHope() : NunCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DynamicVar("HpLoss", 15m),

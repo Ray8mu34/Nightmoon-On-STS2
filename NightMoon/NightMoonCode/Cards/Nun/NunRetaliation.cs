@@ -20,11 +20,13 @@ public class NunRetaliation() : NunCard(1, CardType.Attack, CardRarity.Rare, Tar
         var cap = IsUpgraded ? 25 : 20;
         var damage = Math.Min(lostHp, cap);
 
-        await DamageCmd.Attack(damage)
-            .FromCard(this)
-            .TargetingAllOpponents(combatState)
-            .WithHitFx("vfx/vfx_attack_slash_heavy")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            combatState.HittableEnemies.ToList(),
+            damage,
+            ValueProp.Move,
+            Owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()
