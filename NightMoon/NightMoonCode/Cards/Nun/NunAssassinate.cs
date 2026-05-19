@@ -16,11 +16,7 @@ public class NunAssassinate() : NunCard(1, CardType.Attack, CardRarity.Common, T
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_slash_heavy")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
     }
 
     protected override void OnUpgrade()

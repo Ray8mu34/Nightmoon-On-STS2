@@ -40,5 +40,17 @@
   "NIGHTMOON-NUN_DEMON_BLADE_POWER.smartDescription": "At the start of your turn, deal damage equal to your total floor divided by 5 + {Amount} to a random enemy.",
   "NIGHTMOON-NUN_HOLY_AREA_POWER.title": "Holy Area",
   "NIGHTMOON-NUN_HOLY_AREA_POWER.description": "Whenever a Prayer resolves, gain {Amount} Block.",
-  "NIGHTMOON-NUN_HOLY_AREA_POWER.smartDescription": "Whenever a Prayer resolves, gain {Amount} Block."
+  "NIGHTMOON-NUN_HOLY_AREA_POWER.smartDescription": "Whenever a Prayer resolves, gain {Amount} Block.",
+  "NIGHTMOON-NUN_MIND_BLOOM_POWER.title": "Mind Bloom",
+  "NIGHTMOON-NUN_MIND_BLOOM_POWER.description": "Prayer cards replay {Amount} time.",
+  "NIGHTMOON-NUN_MIND_BLOOM_POWER.smartDescription": "Prayer cards replay {Amount} time.",
+  "NIGHTMOON-NUN_KARMA_STAIN_POWER.title": "Karma Stain",
+  "NIGHTMOON-NUN_KARMA_STAIN_POWER.description": "At the end of your turn, Confession triggers {Amount} times, then Confession decreases by that much.",
+  "NIGHTMOON-NUN_KARMA_STAIN_POWER.smartDescription": "At the end of your turn, Confession triggers {Amount} times, then Confession decreases by that much.",
+  "NIGHTMOON-NUN_RADIANT_FORM_POWER.title": "Indestructible",
+  "NIGHTMOON-NUN_RADIANT_FORM_POWER.description": "Damage you take is capped at {Amount}.",
+  "NIGHTMOON-NUN_RADIANT_FORM_POWER.smartDescription": "Damage you take is capped at {Amount}.",
+  "NIGHTMOON-NUN_FINAL_HOPE_POWER.title": "Final Hope",
+  "NIGHTMOON-NUN_FINAL_HOPE_POWER.description": "Take {Amount} extra turn.",
+  "NIGHTMOON-NUN_FINAL_HOPE_POWER.smartDescription": "Take {Amount} extra turn."
 }

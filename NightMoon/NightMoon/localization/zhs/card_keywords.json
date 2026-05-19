@@ -1,0 +1,6 @@
+{
+  "NUN_PRAYER.title": "祷告",
+  "NUN_PRAYER.description": "打出后进入祷告区。每个你的回合开始时，计时 -1。计时归零时，触发效果并消耗。祷告 0 会立刻触发。",
+  "NIGHTMOON-NUN_PRAYER.title": "祷告",
+  "NIGHTMOON-NUN_PRAYER.description": "打出后进入祷告区。每个你的回合开始时，计时 -1。计时归零时，触发效果并消耗。祷告 0 会立刻触发。"
+}

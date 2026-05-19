@@ -11,13 +11,14 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunDivinePunishment() : NunPrayerCard(2, CardType.Attack, CardRarity.Rare, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override List<CardKeyword> CanonicalKeywords => [NunKeywords.Prayer, CardKeyword.Exhaust];
 
     protected override int PrayerTurns => IsUpgraded ? 3 : 4;
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
         {
             var selected = (await CardSelectCmd.FromDeckGeneric(
                     owner.Player,
@@ -28,7 +29,8 @@ public class NunDivinePunishment() : NunPrayerCard(2, CardType.Attack, CardRarit
             if (selected == null)
                 return;
 
-            for (var i = 0; i < 4; i++)
+            var playCount = (int)(4m * (entry?.ValueMultiplier ?? 1m));
+            for (var i = 0; i < playCount; i++)
             {
                 var copy = owner.CombatState!.CreateCard(
                     ModelDb.GetById<CardModel>(selected.Id),
@@ -41,6 +43,8 @@ public class NunDivinePunishment() : NunPrayerCard(2, CardType.Attack, CardRarit
                 await CardCmd.AutoPlay(choiceContext, copy, ResolveTarget(owner, copy));
             }
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()

@@ -16,11 +16,7 @@ public class NunLifeDrain() : NunCard(3, CardType.Attack, CardRarity.Rare, Targe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_dark")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
 
         await CreatureCmd.Heal(Owner.Creature, DynamicVars.Damage.BaseValue);
     }

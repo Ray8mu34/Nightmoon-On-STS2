@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace NightMoon.NightMoonCode.Prayer;
@@ -10,7 +11,9 @@ public sealed class PrayerEntry(
 {
     public string SourceId { get; } = sourceId;
     public int RemainingTurns { get; set; } = remainingTurns;
+    public decimal ValueMultiplier { get; set; } = 1m;
     public Func<PlayerChoiceContext, Creature, Task> ResolveFunc { get; } = resolve;
+    public CardModel? SourceCard { get; private set; }
 
     public bool Tick()
     {
@@ -23,5 +26,23 @@ public sealed class PrayerEntry(
     public Task Resolve(PlayerChoiceContext choiceContext, Creature owner)
     {
         return resolve(choiceContext, owner);
+    }
+
+    public void SetSourceCard(CardModel sourceCard)
+    {
+        SourceCard = sourceCard;
+    }
+
+    public PrayerEntry Clone()
+    {
+        var clone = new PrayerEntry(SourceId, RemainingTurns, ResolveFunc)
+        {
+            ValueMultiplier = ValueMultiplier
+        };
+
+        if (SourceCard != null)
+            clone.SetSourceCard(SourceCard);
+
+        return clone;
     }
 }

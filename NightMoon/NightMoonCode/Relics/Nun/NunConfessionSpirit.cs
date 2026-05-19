@@ -12,7 +12,7 @@ public class NunConfessionSpirit() : NunRelic
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner != Owner)
+        if (cardPlay.Card.Owner?.Creature != Owner.Creature)
             return;
         if (cardPlay.Card.Type != CardType.Skill)
             return;

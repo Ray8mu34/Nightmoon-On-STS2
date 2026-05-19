@@ -14,7 +14,7 @@ public static class PrayerManager
     /// <summary>
     /// 当祷告计时减少时触发（参数：owner creature, 减少的次数）
     /// </summary>
-    public static event Action<Creature, int>? OnPrayerTimerAdvanced;
+    public static event Func<PlayerChoiceContext, Creature, int, Task>? OnPrayerTimerAdvanced;
     public static event Func<PlayerChoiceContext, Creature, PrayerEntry, Task>? OnPrayerResolved;
 
     public static async Task<int> Add(
@@ -55,7 +55,7 @@ public static class PrayerManager
         }
 
         if (entries.Count > 0 || ready.Count > 0)
-            OnPrayerTimerAdvanced?.Invoke(owner, turns);
+            await NotifyPrayerTimerAdvanced(choiceContext, owner, turns);
 
         foreach (var entry in ready)
         {
@@ -105,5 +105,14 @@ public static class PrayerManager
 
         foreach (Func<PlayerChoiceContext, Creature, PrayerEntry, Task> handler in OnPrayerResolved.GetInvocationList())
             await handler(choiceContext, owner, entry);
+    }
+
+    private static async Task NotifyPrayerTimerAdvanced(PlayerChoiceContext choiceContext, Creature owner, int turns)
+    {
+        if (OnPrayerTimerAdvanced == null)
+            return;
+
+        foreach (Func<PlayerChoiceContext, Creature, int, Task> handler in OnPrayerTimerAdvanced.GetInvocationList())
+            await handler(choiceContext, owner, turns);
     }
 }

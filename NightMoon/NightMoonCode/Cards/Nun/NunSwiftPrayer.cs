@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using NightMoon.NightMoonCode.Prayer;
 
@@ -10,17 +11,24 @@ public class NunSwiftPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Unco
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [];
 
-    protected override int PrayerTurns => 1;
+    protected override int PrayerTurns => PrayerTier;
+    protected override int MaxPrayerTier => 3;
+    protected override LocString PrayerChoiceDescription =>
+        new("cards", $"{Id.Entry}.prayerChoice.{PrayerTier}{(IsUpgraded ? ".upgraded" : "")}");
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
         {
             if (owner.Player is not null)
             {
-                await CardPileCmd.Draw(context, IsUpgraded ? 3 : 2, owner.Player);
+                var amount = (int)(((IsUpgraded ? 3m : 2m) + PrayerTier - 1) * (entry?.ValueMultiplier ?? 1m));
+                await CardPileCmd.Draw(context, amount, owner.Player);
             }
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()

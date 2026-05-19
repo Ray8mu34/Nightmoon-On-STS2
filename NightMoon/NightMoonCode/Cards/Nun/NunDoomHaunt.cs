@@ -21,18 +21,23 @@ public class NunDoomHaunt() : NunPrayerCard(2, CardType.Skill, CardRarity.Uncomm
     {
         var target = cardPlay.Target;
 
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
         {
             var resolvedTarget = ResolveTarget(owner, target);
             if (resolvedTarget is null)
                 return;
 
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(resolvedTarget)
-                .WithHitFx("vfx/vfx_attack_dark")
-                .Execute(context);
+            await CreatureCmd.Damage(
+                context,
+                resolvedTarget,
+                DynamicVars.Damage.BaseValue * (entry?.ValueMultiplier ?? 1m),
+                DynamicVars.Damage.Props,
+                owner,
+                this);
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()

@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Random;
@@ -13,7 +14,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunDoomPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
 {
     public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [] : [CardKeyword.Exhaust];
+        IsUpgraded ? [NunKeywords.Prayer] : [NunKeywords.Prayer, CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<WeakPower>(2m)
@@ -24,25 +25,42 @@ public class NunDoomPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Commo
         HoverTipFactory.FromPower<WeakPower>()
     ];
 
-    protected override int PrayerTurns => 1;
+    protected override int PrayerTurns => PrayerTier;
+    protected override int MaxPrayerTier => 3;
+    protected override LocString PrayerChoiceDescription =>
+        new("cards", $"{Id.Entry}.prayerChoice.{PrayerTier}{(IsUpgraded ? ".upgraded" : "")}");
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
         var target = cardPlay.Target;
 
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
         {
             var resolvedTarget = ResolveTarget(owner, target);
             if (resolvedTarget is null)
                 return;
 
+            var multiplier = entry?.ValueMultiplier ?? 1m;
             await PowerCmd.Apply<WeakPower>(
                 context,
                 resolvedTarget,
-                DynamicVars[typeof(WeakPower).Name].BaseValue,
+                DynamicVars[typeof(WeakPower).Name].BaseValue * multiplier,
                 owner,
                 this);
+
+            if (PrayerTier >= 2)
+            {
+                await PowerCmd.Apply<VulnerablePower>(
+                    context,
+                    resolvedTarget,
+                    (PrayerTier - 1) * multiplier,
+                    owner,
+                    this);
+            }
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()

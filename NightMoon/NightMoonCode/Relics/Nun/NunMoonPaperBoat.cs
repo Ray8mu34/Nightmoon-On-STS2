@@ -16,7 +16,7 @@ public class NunMoonPaperBoat() : NunRelic
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner)
+        if (player.Creature != Owner.Creature)
             return;
 
         TurnCounter.Set(Owner.Creature, TurnCounter.Get(Owner.Creature) + 1);

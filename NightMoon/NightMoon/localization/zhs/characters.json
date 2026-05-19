@@ -1,0 +1,16 @@
+{
+  "NIGHTMOON-NUN_CHARACTER.title": "修女",
+  "NIGHTMOON-NUN_CHARACTER.titleObject": "修女",
+  "NIGHTMOON-NUN_CHARACTER.description": "以祷告积蓄力量，在忏悔中偿还代价的苦修者。",
+  "NIGHTMOON-NUN_CHARACTER.pronounObject": "她",
+  "NIGHTMOON-NUN_CHARACTER.possessiveAdjective": "她的",
+  "NIGHTMOON-NUN_CHARACTER.pronounPossessive": "她的",
+  "NIGHTMOON-NUN_CHARACTER.pronounSubject": "她",
+  "NIGHTMOON-NUN_CHARACTER.goldMonologue": "供奉已被接纳。",
+  "NIGHTMOON-NUN_CHARACTER.eventDeathPrevention": "最后的祷告让你仍能站立。",
+  "NIGHTMOON-NUN_CHARACTER.aromaPrinciple": "焚香",
+  "NIGHTMOON-NUN_CHARACTER.cardsModifierTitle": "祷告",
+  "NIGHTMOON-NUN_CHARACTER.cardsModifierDescription": "围绕延迟祝福与忏悔构筑的牌。",
+  "NIGHTMOON-NUN_CHARACTER.banter.alive.endTurnPing": "...",
+  "NIGHTMOON-NUN_CHARACTER.banter.dead.endTurnPing": "..."
+}

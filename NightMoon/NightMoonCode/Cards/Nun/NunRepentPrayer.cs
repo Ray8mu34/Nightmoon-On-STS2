@@ -19,15 +19,18 @@ public class NunRepentPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Unc
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
         var confessionAmount = DynamicVars[typeof(NunConfessionPower).Name].BaseValue;
-        return CreatePrayerEntry(cardPlay.Card.Id.Entry, async choiceContext =>
+        PrayerEntry? entry = null;
+        entry = CreatePrayerEntry(cardPlay.Card.Id.Entry, async choiceContext =>
         {
             await PowerCmd.Apply<NunConfessionPower>(
                 choiceContext,
                 Owner.Creature,
-                confessionAmount,
+                confessionAmount * (entry?.ValueMultiplier ?? 1m),
                 Owner.Creature,
                 this);
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()

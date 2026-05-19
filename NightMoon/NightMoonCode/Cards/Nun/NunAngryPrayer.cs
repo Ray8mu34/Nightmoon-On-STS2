@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -15,29 +16,52 @@ public class NunAngryPrayer() : NunPrayerCard(1, CardType.Attack, CardRarity.Com
         new DamageVar(8m, ValueProp.Move)
     ];
 
-    protected override int PrayerTurns => 1;
+    protected override int PrayerTurns => PrayerTier;
+    protected override int MaxPrayerTier => 4;
+    protected override LocString PrayerChoiceDescription =>
+        new("cards", $"{Id.Entry}.prayerChoice.{PrayerTier}{(IsUpgraded ? ".upgraded" : "")}");
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
         var target = cardPlay.Target;
 
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
         {
             var resolvedTarget = ResolveTarget(owner, target);
             if (resolvedTarget is null)
                 return;
 
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .Targeting(resolvedTarget)
-                .WithHitFx("vfx/vfx_attack_slash_heavy")
-                .Execute(context);
+            await CreatureCmd.Damage(context, resolvedTarget, CalculateDamage() * (entry?.ValueMultiplier ?? 1m), DynamicVars.Damage.Props, owner, this);
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(2m);
+    }
+
+    private decimal CalculateDamage()
+    {
+        var normal = PrayerTier switch
+        {
+            1 => 8m,
+            2 => 12m,
+            3 => 16m,
+            _ => 21m
+        };
+
+        var upgraded = PrayerTier switch
+        {
+            1 => 10m,
+            2 => 15m,
+            3 => 20m,
+            _ => 25m
+        };
+
+        return IsUpgraded ? upgraded : normal;
     }
 
     private static Creature? ResolveTarget(Creature owner, Creature? preferredTarget)

@@ -11,16 +11,19 @@ public class NunRebirthPrayer() : NunPrayerCard(2, CardType.Skill, CardRarity.Ra
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
         {
-            var count = IsUpgraded ? 4 : 3;
+            var count = (int)((IsUpgraded ? 4m : 3m) * (entry?.ValueMultiplier ?? 1m));
             for (var i = 0; i < count; i++)
             {
                 var prayer = CreateRandomPrayerCard();
-                var entry = prayer.CreatePrayerEntryForPrayerZone(cardPlay);
-                await PrayerManager.Add(choiceContext, owner, entry);
+                var generatedEntry = prayer.CreatePrayerEntryForPrayerZone(cardPlay);
+                await PrayerManager.Add(choiceContext, owner, generatedEntry);
             }
         });
+
+        return entry;
     }
 
     private NunPrayerCard CreateRandomPrayerCard()

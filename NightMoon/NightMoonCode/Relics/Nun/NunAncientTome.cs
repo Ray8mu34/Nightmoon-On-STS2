@@ -1,4 +1,3 @@
-using System;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,7 +11,7 @@ public class NunAncientTome() : NunRelic
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner)
+        if (player.Creature != Owner.Creature)
             return;
 
         var count = PrayerManager.Count(Owner.Creature);
@@ -20,9 +19,6 @@ public class NunAncientTome() : NunRelic
             return;
 
         Flash();
-        PrayerManager.ModifyAllEntries(Owner.Creature, entry =>
-        {
-            entry.RemainingTurns = Math.Max(0, entry.RemainingTurns - 1);
-        });
+        await PrayerManager.Accelerate(choiceContext, Owner.Creature, 1);
     }
 }

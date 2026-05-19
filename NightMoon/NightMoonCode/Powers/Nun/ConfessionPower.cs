@@ -25,9 +25,33 @@ public class NunConfessionPower() : NunPower
         if (enemies.Count == 0)
             return;
 
+        var karma = Owner.GetPower<NunKarmaStainPower>();
+        var triggerCount = karma is { Amount: > 0 } ? (int)karma.Amount : 1;
+        var damageAmount = Amount;
+
         Flash();
+        for (var i = 0; i < triggerCount; i++)
+            await Trigger(choiceContext, damageAmount);
+
+        if (karma is { Amount: > 0 })
+            await PowerCmd.ModifyAmount(choiceContext, this, -karma.Amount, Owner, null, false);
+    }
+
+    public async Task Trigger(PlayerChoiceContext choiceContext, decimal amount)
+    {
+        if (amount <= 0)
+            return;
+
+        var combatState = Owner.CombatState;
+        if (combatState is null)
+            return;
+
+        var enemies = combatState.HittableEnemies.ToList();
+        if (enemies.Count == 0)
+            return;
+
         var index = Owner.Player?.RunState?.Rng.Niche.NextInt(enemies.Count) ?? Rng.Chaotic.NextInt(enemies.Count);
         var props = ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.SkipHurtAnim;
-        await CreatureCmd.Damage(choiceContext, enemies[index], Amount, props, Owner, null);
+        await CreatureCmd.Damage(choiceContext, enemies[index], amount, props, Owner, null);
     }
 }

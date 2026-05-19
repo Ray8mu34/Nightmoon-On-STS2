@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using NightMoon.NightMoonCode.Prayer;
@@ -15,7 +16,7 @@ public class NunHolyImagePower() : NunPower
         PrayerManager.OnPrayerTimerAdvanced += OnPrayerTimerAdvanced;
     }
 
-    private static async void OnPrayerTimerAdvanced(MegaCrit.Sts2.Core.Entities.Creatures.Creature owner, int turns)
+    private static async Task OnPrayerTimerAdvanced(PlayerChoiceContext choiceContext, Creature owner, int turns)
     {
         // 通过 CombatState 查找所有拥有此能力的 creature
         var combatState = owner.CombatState;
@@ -30,7 +31,7 @@ public class NunHolyImagePower() : NunPower
             {
                 power.Flash();
                 await PowerCmd.Apply<NunConfessionPower>(
-                    new ThrowingPlayerChoiceContext(),
+                    choiceContext,
                     creature,
                     1,
                     creature,

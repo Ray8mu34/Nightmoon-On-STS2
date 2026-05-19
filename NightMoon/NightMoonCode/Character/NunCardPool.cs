@@ -8,8 +8,8 @@ public class NunCardPool : CustomCardPoolModel
 {
     public override string Title => NunCharacter.CharacterId;
 
-    public override string BigEnergyIconPath => "charui/big_energy.png".ImagePath();
-    public override string TextEnergyIconPath => "charui/text_energy.png".ImagePath();
+    public override string BigEnergyIconPath => "charui/nun_big_energy.png".ImagePath();
+    public override string TextEnergyIconPath => "charui/nun_text_energy.png".ImagePath();
 
     public override float H => 1f;
     public override float S => 1f;

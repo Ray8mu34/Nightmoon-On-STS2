@@ -1,3 +1,6 @@
 {
-  
+  "NUN_PRAYER.title": "Prayer",
+  "NUN_PRAYER.description": "After played, enters the Prayer zone. At the start of each of your turns, its timer decreases by 1. When it reaches 0, it resolves and is exhausted. Prayer 0 resolves immediately.",
+  "NIGHTMOON-NUN_PRAYER.title": "Prayer",
+  "NIGHTMOON-NUN_PRAYER.description": "After played, enters the Prayer zone. At the start of each of your turns, its timer decreases by 1. When it reaches 0, it resolves and is exhausted. Prayer 0 resolves immediately."
 }

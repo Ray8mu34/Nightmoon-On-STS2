@@ -53,8 +53,8 @@ public class NunCharacter : PlaceholderCharacterModel
         }
     }
 
-    public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
-    public override string CustomCharacterSelectIconPath => "char_select_char_name.png".CharacterUiPath();
-    public override string CustomCharacterSelectLockedIconPath => "char_select_char_name_locked.png".CharacterUiPath();
-    public override string CustomMapMarkerPath => "map_marker_char_name.png".CharacterUiPath();
+    public override string CustomIconTexturePath => "nun_character_icon.png".CharacterUiPath();
+    public override string CustomCharacterSelectIconPath => "nun_character_select.png".CharacterUiPath();
+    public override string CustomCharacterSelectLockedIconPath => "nun_character_select_locked.png".CharacterUiPath();
+    public override string CustomMapMarkerPath => "nun_map_marker.png".CharacterUiPath();
 }

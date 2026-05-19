@@ -22,7 +22,7 @@ public class NunConfessionHeart() : NunRelic
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner)
+        if (player.Creature != Owner.Creature)
             return;
 
         Flash();

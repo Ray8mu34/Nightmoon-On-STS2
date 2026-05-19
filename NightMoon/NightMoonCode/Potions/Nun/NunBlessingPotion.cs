@@ -18,7 +18,7 @@ public class NunBlessingPotion() : NunPotion
         var entriesToCopy = new List<PrayerEntry>();
         PrayerManager.ModifyAllEntries(Owner.Creature, entry =>
         {
-            entriesToCopy.Add(new PrayerEntry(entry.SourceId, entry.RemainingTurns, entry.ResolveFunc));
+            entriesToCopy.Add(entry.Clone());
         });
 
         foreach (var entry in entriesToCopy)

@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using NightMoon.NightMoonCode.Prayer;
@@ -19,18 +20,29 @@ public class NunRetreatPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Co
         HoverTipFactory.Static(StaticHoverTip.Block)
     ];
 
-    protected override int PrayerTurns => 1;
+    protected override int PrayerTurns => PrayerTier;
+    protected override int MaxPrayerTier => 3;
+    protected override LocString PrayerChoiceDescription =>
+        new("cards", $"{Id.Entry}.prayerChoice.{PrayerTier}{(IsUpgraded ? ".upgraded" : "")}");
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (_, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (_, owner) =>
         {
-            await CreatureCmd.GainBlock(owner, DynamicVars.Block.BaseValue, DynamicVars.Block.Props, null);
+            await CreatureCmd.GainBlock(owner, CalculateBlock() * (entry?.ValueMultiplier ?? 1m), DynamicVars.Block.Props, null);
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(3m);
+    }
+
+    private decimal CalculateBlock()
+    {
+        return DynamicVars.Block.BaseValue + 3m * (PrayerTier - 1);
     }
 }

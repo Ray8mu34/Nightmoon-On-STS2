@@ -25,11 +25,13 @@ public class NunWeakRay() : NunCard(2, CardType.Attack, CardRarity.Uncommon, Tar
         if (combatState is null)
             return;
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(combatState)
-            .WithHitFx("vfx/vfx_attack_magic")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            combatState.HittableEnemies.ToList(),
+            DynamicVars.Damage.BaseValue,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
 
         foreach (var enemy in combatState.HittableEnemies.ToList())
         {

@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using NightMoon.NightMoonCode.Prayer;
@@ -19,26 +20,33 @@ public class NunDevourPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Rar
         HoverTipFactory.FromPower<StrengthPower>()
     ];
 
-    protected override int PrayerTurns => 1;
+    protected override int PrayerTurns => PrayerTier;
+    protected override int MaxPrayerTier => 3;
+    protected override LocString PrayerChoiceDescription =>
+        new("cards", $"{Id.Entry}.prayerChoice.{PrayerTier}");
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
         {
             var enemies = owner.CombatState?.HittableEnemies;
             if (enemies == null)
                 return;
 
+            var amount = -PrayerTier * (entry?.ValueMultiplier ?? 1m);
             foreach (var enemy in enemies)
             {
                 await PowerCmd.Apply<StrengthPower>(
                     choiceContext,
                     enemy,
-                    -DynamicVars[typeof(StrengthPower).Name].BaseValue,
+                    amount,
                     owner,
                     this);
             }
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()

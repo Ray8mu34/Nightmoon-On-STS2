@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -11,31 +12,34 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunAttackPrayer() : NunPrayerCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
-    private const int BaseDamagePerTier = 3;
+    private const int BaseDamage = 6;
+    private const int DamagePerAdditionalTier = 3;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(BaseDamage(), ValueProp.Move)
+        new DamageVar(BaseDamage, ValueProp.Move)
     ];
 
     protected override int PrayerTurns => PrayerTier;
+    protected override int MaxPrayerTier => 4;
+    protected override LocString PrayerChoiceDescription =>
+        new("cards", $"{Id.Entry}.prayerChoice.{PrayerTier}{(IsUpgraded ? ".upgraded" : "")}");
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
         var target = cardPlay.Target;
-        var damage = BaseDamage();
+        var damage = CalculateDamage();
 
-        return new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
+        PrayerEntry? entry = null;
+        entry = new PrayerEntry(Id.Entry, PrayerTurns, async (context, owner) =>
         {
             var resolvedTarget = ResolveTarget(owner, target);
             if (resolvedTarget is null)
                 return;
 
-            await DamageCmd.Attack(damage)
-                .FromCard(this)
-                .Targeting(resolvedTarget)
-                .WithHitFx("vfx/vfx_attack_slash_heavy")
-                .Execute(context);
+            await CreatureCmd.Damage(context, resolvedTarget, damage * (entry?.ValueMultiplier ?? 1m), DynamicVars.Damage.Props, owner, this);
         });
+
+        return entry;
     }
 
     protected override void OnUpgrade()
@@ -43,10 +47,10 @@ public class NunAttackPrayer() : NunPrayerCard(1, CardType.Attack, CardRarity.Ba
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 
-    private decimal BaseDamage()
+    private decimal CalculateDamage()
     {
         var baseDmg = DynamicVars.Damage.BaseValue;
-        return baseDmg + BaseDamagePerTier * (PrayerTier - 1);
+        return baseDmg + DamagePerAdditionalTier * (PrayerTier - 1);
     }
 
     private static Creature? ResolveTarget(Creature owner, Creature? preferredTarget)

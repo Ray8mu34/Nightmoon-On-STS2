@@ -16,7 +16,7 @@ public class NunBlessingStatue() : NunRelic
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner)
+        if (player.Creature != Owner.Creature)
             return;
 
         if (AppliedThisCombat.Get(Owner.Creature))
