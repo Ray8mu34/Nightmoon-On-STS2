@@ -19,11 +19,13 @@ public class NunForwardRetreat() : NunCard(1, CardType.Attack, CardRarity.Common
         if (combatState is null)
             return;
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(combatState)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            combatState.HittableEnemies.ToList(),
+            DynamicVars.Damage.BaseValue,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
 
         var prayerCount = PrayerManager.Count(Owner.Creature);
         if (prayerCount > 0)

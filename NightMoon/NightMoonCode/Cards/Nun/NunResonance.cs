@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunResonance() : NunCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(11m, (ValueProp)0),
+        new BlockVar(11m, ValueProp.Move),
         new PowerVar<WeakPower>(3m)
     ];
 
@@ -36,3 +36,4 @@ public class NunResonance() : NunCard(2, CardType.Skill, CardRarity.Uncommon, Ta
         DynamicVars.Block.UpgradeValueBy(4m);
     }
 }
+

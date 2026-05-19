@@ -10,7 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunHolyImage() : NunCard(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<NunHolyImagePower>(4m)
+        new PowerVar<NunHolyImagePower>(1m)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -29,6 +29,6 @@ public class NunHolyImage() : NunCard(2, CardType.Power, CardRarity.Rare, Target
 
     protected override void OnUpgrade()
     {
-        DynamicVars[typeof(NunHolyImagePower).Name].UpgradeValueBy(1m);
+        EnergyCost.SetCustomBaseCost(1);
     }
 }

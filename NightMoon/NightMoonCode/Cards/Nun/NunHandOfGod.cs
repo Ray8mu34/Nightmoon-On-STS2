@@ -17,7 +17,13 @@ public class NunHandOfGod() : NunCard(2, CardType.Attack, CardRarity.Rare, Targe
         var damage = Math.Min(target.CurrentHp / 2, cap);
         damage = Math.Max(damage, 1);
 
-        await CreatureCmd.Damage(choiceContext, target, damage, ValueProp.Unpowered, Owner.Creature, this);
+        await CreatureCmd.Damage(
+            choiceContext,
+            target,
+            damage,
+            ValueProp.Unblockable | ValueProp.Unpowered,
+            Owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()

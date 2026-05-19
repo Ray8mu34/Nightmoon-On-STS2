@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -10,7 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunDefend() : NunCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(5m, (ValueProp)0)
+        new BlockVar(5m, ValueProp.Move)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -27,3 +27,4 @@ public class NunDefend() : NunCard(1, CardType.Skill, CardRarity.Basic, TargetTy
         DynamicVars.Block.UpgradeValueBy(3m);
     }
 }
+

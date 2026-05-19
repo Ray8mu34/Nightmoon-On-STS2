@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,7 +12,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunInspirationBurst() : NunCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(6m, (ValueProp)0)
+        new BlockVar(6m, ValueProp.Move)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -52,3 +52,4 @@ public class NunInspirationBurst() : NunCard(1, CardType.Skill, CardRarity.Commo
         DynamicVars.Block.UpgradeValueBy(2m);
     }
 }
+

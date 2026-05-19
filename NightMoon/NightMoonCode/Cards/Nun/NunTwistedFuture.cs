@@ -15,22 +15,18 @@ public class NunTwistedFuture() : NunCard(1, CardType.Attack, CardRarity.Common,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var baseDamage = DynamicVars.Damage.BaseValue;
-
-        await DamageCmd.Attack(baseDamage)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
 
         var confessionAmount = Owner.Creature.GetPowerAmount<NunConfessionPower>();
         if (confessionAmount > 5)
         {
-            await DamageCmd.Attack(4m)
-                .FromCard(this)
-                .Targeting(cardPlay.Target!)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
+            await CreatureCmd.Damage(
+                choiceContext,
+                cardPlay.Target!,
+                4m,
+                ValueProp.Move,
+                Owner.Creature,
+                this);
         }
     }
 

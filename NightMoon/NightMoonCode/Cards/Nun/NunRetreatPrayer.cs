@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -12,7 +12,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunRetreatPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(7m, (ValueProp)0)
+        new BlockVar(7m, ValueProp.Move)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -46,3 +46,4 @@ public class NunRetreatPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Co
         return DynamicVars.Block.BaseValue + 3m * (PrayerTier - 1);
     }
 }
+

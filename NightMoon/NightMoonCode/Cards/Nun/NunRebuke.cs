@@ -16,11 +16,13 @@ public class NunRebuke() : NunCard(0, CardType.Attack, CardRarity.Uncommon, Targ
     {
         var prayerCount = Owner.Deck.Cards.Count(c => c is NunPrayerCard);
         var damage = prayerCount + (IsUpgraded ? 3 : 0);
-        await DamageCmd.Attack(damage)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            cardPlay.Target!,
+            damage,
+            ValueProp.Move,
+            Owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()

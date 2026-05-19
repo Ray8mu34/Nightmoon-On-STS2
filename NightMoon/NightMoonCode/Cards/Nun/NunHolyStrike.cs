@@ -14,11 +14,7 @@ public class NunHolyStrike() : NunCard(1, CardType.Attack, CardRarity.Common, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
 
         await CreatureCmd.Heal(Owner.Creature, DynamicVars.Damage.BaseValue);
     }

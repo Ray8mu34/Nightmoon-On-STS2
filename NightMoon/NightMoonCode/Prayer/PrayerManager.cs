@@ -49,13 +49,21 @@ public static class PrayerManager
             return 0;
 
         var ready = new List<PrayerEntry>();
+        var totalTimerDecrements = 0;
         for (var i = 0; i < turns; i++)
         {
-            ready.AddRange(entries.Where(entry => entry.Tick()).Where(entry => !ready.Contains(entry)));
+            foreach (var entry in entries)
+            {
+                if (entry.RemainingTurns > 0)
+                    totalTimerDecrements++;
+
+                if (entry.Tick() && !ready.Contains(entry))
+                    ready.Add(entry);
+            }
         }
 
-        if (entries.Count > 0 || ready.Count > 0)
-            await NotifyPrayerTimerAdvanced(choiceContext, owner, turns);
+        if (totalTimerDecrements > 0)
+            await NotifyPrayerTimerAdvanced(choiceContext, owner, totalTimerDecrements);
 
         foreach (var entry in ready)
         {

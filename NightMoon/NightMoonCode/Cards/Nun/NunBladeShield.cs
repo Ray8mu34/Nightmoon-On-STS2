@@ -1,4 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
+﻿using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -11,7 +11,7 @@ public class NunBladeShield() : NunCard(3, CardType.Attack, CardRarity.Uncommon,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(17m, ValueProp.Move),
-        new BlockVar(17m, (ValueProp)0)
+        new BlockVar(17m, ValueProp.Move)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -37,3 +37,4 @@ public class NunBladeShield() : NunCard(3, CardType.Attack, CardRarity.Uncommon,
         DynamicVars.Block.UpgradeValueBy(3m);
     }
 }
+

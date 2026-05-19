@@ -15,11 +15,13 @@ public class NunRockfall() : NunCard(1, CardType.Attack, CardRarity.Common, Targ
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var roundBonus = Owner.Creature.CombatState?.RoundNumber ?? 0;
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue + roundBonus)
-            .FromCard(this)
-            .Targeting(cardPlay.Target!)
-            .WithHitFx("vfx/vfx_attack_blunt")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            cardPlay.Target!,
+            DynamicVars.Damage.BaseValue + roundBonus,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()

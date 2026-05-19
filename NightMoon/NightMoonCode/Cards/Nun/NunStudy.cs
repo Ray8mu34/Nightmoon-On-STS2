@@ -16,11 +16,13 @@ public class NunStudy() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Target
     {
         await CardPileCmd.Draw(choiceContext, 1, Owner, false);
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(CombatState!)
-            .WithHitFx("vfx/vfx_attack_slash")
-            .Execute(choiceContext);
+        await CreatureCmd.Damage(
+            choiceContext,
+            CombatState!.HittableEnemies.ToList(),
+            DynamicVars.Damage.BaseValue,
+            DynamicVars.Damage.Props,
+            Owner.Creature,
+            this);
 
         // 若手牌卡牌类型均不同，则重复
         var hand = Owner.PlayerCombatState.Hand.Cards;
@@ -29,11 +31,13 @@ public class NunStudy() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Target
         {
             await CardPileCmd.Draw(choiceContext, 1, Owner, false);
 
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
-                .TargetingAllOpponents(CombatState!)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
+            await CreatureCmd.Damage(
+                choiceContext,
+                CombatState.HittableEnemies.ToList(),
+                DynamicVars.Damage.BaseValue,
+                DynamicVars.Damage.Props,
+                Owner.Creature,
+                this);
         }
     }
 
