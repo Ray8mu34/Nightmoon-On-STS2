@@ -50,6 +50,9 @@
   "NIGHTMOON-NUN_RADIANT_FORM_POWER.title": "坚不可摧",
   "NIGHTMOON-NUN_RADIANT_FORM_POWER.description": "你受到的伤害最多为 {Amount} 点。",
   "NIGHTMOON-NUN_RADIANT_FORM_POWER.smartDescription": "你受到的伤害最多为 {Amount} 点。",
+  "NIGHTMOON-NUN_JUSTICE_SCALE_POWER.title": "正义天平",
+  "NIGHTMOON-NUN_JUSTICE_SCALE_POWER.description": "回合开始时，对随机敌人造成上回合总伤害的 {Amount}% 伤害。",
+  "NIGHTMOON-NUN_JUSTICE_SCALE_POWER.smartDescription": "回合开始时，对随机敌人造成上回合总伤害的 {Amount}% 伤害。",
   "NIGHTMOON-NUN_FINAL_HOPE_POWER.title": "最终希望",
   "NIGHTMOON-NUN_FINAL_HOPE_POWER.description": "进行 {Amount} 个额外回合。",
   "NIGHTMOON-NUN_FINAL_HOPE_POWER.smartDescription": "进行 {Amount} 个额外回合。"

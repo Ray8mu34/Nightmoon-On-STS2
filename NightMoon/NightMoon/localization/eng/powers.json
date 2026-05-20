@@ -50,6 +50,9 @@
   "NIGHTMOON-NUN_RADIANT_FORM_POWER.title": "Indestructible",
   "NIGHTMOON-NUN_RADIANT_FORM_POWER.description": "Damage you take is capped at {Amount}.",
   "NIGHTMOON-NUN_RADIANT_FORM_POWER.smartDescription": "Damage you take is capped at {Amount}.",
+  "NIGHTMOON-NUN_JUSTICE_SCALE_POWER.title": "Scales of Justice",
+  "NIGHTMOON-NUN_JUSTICE_SCALE_POWER.description": "At the start of your turn, deal damage equal to {Amount}% of the total damage you dealt last turn to a random enemy.",
+  "NIGHTMOON-NUN_JUSTICE_SCALE_POWER.smartDescription": "At the start of your turn, deal damage equal to {Amount}% of the total damage you dealt last turn to a random enemy.",
   "NIGHTMOON-NUN_FINAL_HOPE_POWER.title": "Final Hope",
   "NIGHTMOON-NUN_FINAL_HOPE_POWER.description": "Take {Amount} extra turn.",
   "NIGHTMOON-NUN_FINAL_HOPE_POWER.smartDescription": "Take {Amount} extra turn."

@@ -9,12 +9,19 @@ public class NunHolyWaterBath() : NunCard(1, CardType.Power, CardRarity.Common, 
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var curses = Owner.Deck.Cards
+        var combatState = Owner.PlayerCombatState;
+        if (combatState == null)
+            return;
+
+        var curses = combatState.DrawPile.Cards
+            .Concat(combatState.DiscardPile.Cards)
+            .Concat(combatState.Hand.Cards)
             .Where(card => card.Type == CardType.Curse)
+            .Distinct()
             .ToList();
 
         if (curses.Count > 0)
-            await CardPileCmd.RemoveFromDeck(curses, showPreview: true);
+            await CardPileCmd.Add(curses, PileType.Exhaust, CardPilePosition.Bottom, this);
     }
 
     protected override void OnUpgrade()

@@ -18,7 +18,7 @@
 大雾	NIGHTMOON-NUN_FOG	1	
 以退为进	NIGHTMOON-NUN_FORWARD_RETREAT	1	
 灵感爆发	NIGHTMOON-NUN_INSPIRATION_BURST	1	
-沐浴圣水	NIGHTMOON-NUN_HOLY_WATER_BATH	有动画，但是没能烧掉诅咒。暂时不修，考虑改成消耗抽牌堆中的诅咒	
+沐浴圣水	NIGHTMOON-NUN_HOLY_WATER_BATH	已按最新要求改为消耗抽牌堆、弃牌堆和手牌中的诅咒，待实测	
 天火祷告	NIGHTMOON-NUN_SKYFIRE_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
 愤怒祷告	NIGHTMOON-NUN_ANGRY_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
 厄运祷告	NIGHTMOON-NUN_DOOM_PRAYER	消耗已经在关键字段，无须在卡牌描述里单独写“消耗”	√
@@ -38,7 +38,7 @@
 生命祷告	NIGHTMOON-NUN_LIFE_PRAYER	功能正常。要去除卡牌描述里的升级后的数值那一小段	√
 虚弱射线	NIGHTMOON-NUN_WEAK_RAY	功能正常，卡图描述有问题，目前的“对所有敌人造成{damage}点伤害，给予所有敌人{weak}层虚弱”	√
 曙光降临	NIGHTMOON-NUN_DAWN	1	
-呵斥	NIGHTMOON-NUN_REBUKE	重做卡牌，现在太弱了。不再是卡组内，而是抽牌堆、弃牌堆、手牌、消耗堆中祷告牌数量的伤害	
+呵斥	NIGHTMOON-NUN_REBUKE	重做卡牌，现在太弱了。不再是卡组内，而是抽牌堆、弃牌堆、手牌、消耗堆中祷告牌数量的伤害	√
 神圣净化	NIGHTMOON-NUN_HOLY_PURIFICATION	打出时卡住不结算，不影响游戏其余进程	√
 炸弹	NIGHTMOON-NUN_BOMB	1	
 献祭	NIGHTMOON-NUN_SACRIFICE	打出时卡住不结算，不影响游戏其余进程	√
@@ -60,8 +60,8 @@
 钻研	NIGHTMOON-NUN_STUDY	1	
 神之手	NIGHTMOON-NUN_HAND_OF_GOD	当前是造成伤害而不是失去生命，要改成失去生命	√
 末日灾祸	NIGHTMOON-NUN_DOOM_CALAMITY	1	
-光辉形态	NIGHTMOON-NUN_RADIANT_FORM	坚不可摧是sts1里的一个buff，在这一代似乎没有对应实现。坚不可摧x就是每回合失去生命不超过x，可以反编译去看看官方遗物BeatingRemnant.cs的实现	
-心灵绽放	NIGHTMOON-NUN_MIND_BLOOM	祷告牌确实重放了，哪怕是新生成的祷告牌也支持重放。但是没有给牌面添加“重放1”的字样，如果可以还是添加一下，虽然好像对新生成的添加很困难。如果发现有困难，还是不添加了把	
+光辉形态	NIGHTMOON-NUN_RADIANT_FORM	坚不可摧是sts1里的一个buff，在这一代似乎没有对应实现。坚不可摧x就是每回合失去生命不超过x，可以反编译去看看官方遗物BeatingRemnant.cs的实现	√
+心灵绽放	NIGHTMOON-NUN_MIND_BLOOM	机制不改，卡面描述已按最新要求改为“额外打出一次”，待实测	
 最终希望	NIGHTMOON-NUN_FINAL_HOPE	效果实现了。但是需要添加消耗，否则太强大了	√
 业力沾身	NIGHTMOON-NUN_KARMA_STAIN	卡面描述有问题，不是减少同等层数，是减少2层	√
 神圣领域	NIGHTMOON-NUN_HOLY_AREA	1	
@@ -79,4 +79,4 @@
 重生祷告	NIGHTMOON-NUN_REBIRTH_PRAYER	1	
 吞噬祷告	NIGHTMOON-NUN_DEVOUR_PRAYER	1	
 审判	NIGHTMOON-NUN_JUDGEMENT	打出时卡住，卡面描述有误，费用应该是1费而不是3费	√
-正义天平		未实现该卡牌	
+正义天平	NIGHTMOON-NUN_JUSTICE_SCALE	未实现该卡牌	√
