@@ -30,6 +30,7 @@ public static class PrayerManager
         }
 
         EntriesFor(owner).Add(entry);
+        PrayerOrbDisplay.Sync(owner);
         return Count(owner);
     }
 
@@ -73,7 +74,14 @@ public static class PrayerManager
         }
 
         if (entries.Count == 0)
+        {
             EntriesByOwner.Remove(owner);
+            PrayerOrbDisplay.Clear(owner);
+        }
+        else
+        {
+            PrayerOrbDisplay.Sync(owner);
+        }
 
         return ready.Count;
     }
@@ -81,6 +89,17 @@ public static class PrayerManager
     public static int Count(Creature owner)
     {
         return EntriesByOwner.TryGetValue(owner, out var entries) ? entries.Count : 0;
+    }
+
+    public static void ClearAll()
+    {
+        EntriesByOwner.Clear();
+        PrayerOrbDisplay.ClearAll();
+    }
+
+    public static IReadOnlyList<PrayerEntry> GetEntries(Creature owner)
+    {
+        return EntriesByOwner.TryGetValue(owner, out var entries) ? entries.ToList() : [];
     }
 
     private static List<PrayerEntry> EntriesFor(Creature owner)
@@ -104,6 +123,8 @@ public static class PrayerManager
 
         foreach (var entry in entries)
             modifier(entry);
+
+        PrayerOrbDisplay.Sync(owner);
     }
 
     private static async Task NotifyPrayerResolved(PlayerChoiceContext choiceContext, Creature owner, PrayerEntry entry)

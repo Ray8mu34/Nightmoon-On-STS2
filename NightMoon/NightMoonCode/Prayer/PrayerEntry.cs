@@ -14,6 +14,7 @@ public sealed class PrayerEntry(
     public decimal ValueMultiplier { get; set; } = 1m;
     public Func<PlayerChoiceContext, Creature, Task> ResolveFunc { get; } = resolve;
     public CardModel? SourceCard { get; private set; }
+    public string? EffectDescription { get; private set; }
 
     public bool Tick()
     {
@@ -33,6 +34,11 @@ public sealed class PrayerEntry(
         SourceCard = sourceCard;
     }
 
+    public void SetEffectDescription(string effectDescription)
+    {
+        EffectDescription = effectDescription;
+    }
+
     public PrayerEntry Clone()
     {
         var clone = new PrayerEntry(SourceId, RemainingTurns, ResolveFunc)
@@ -42,6 +48,9 @@ public sealed class PrayerEntry(
 
         if (SourceCard != null)
             clone.SetSourceCard(SourceCard);
+
+        if (EffectDescription != null)
+            clone.SetEffectDescription(EffectDescription);
 
         return clone;
     }

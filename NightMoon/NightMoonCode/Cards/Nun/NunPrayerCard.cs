@@ -56,6 +56,7 @@ public abstract class NunPrayerCard(int cost, CardType type, CardRarity rarity, 
         }
 
         entry.SetSourceCard(this);
+        entry.SetEffectDescription(GetPrayerEffectDescription());
 
         await PrayerManager.Add(
             choiceContext,
@@ -103,12 +104,25 @@ public abstract class NunPrayerCard(int cost, CardType type, CardRarity rarity, 
     {
         var entry = CreatePrayerEntry(cardPlay);
         entry.SetSourceCard(this);
+        entry.SetEffectDescription(GetPrayerEffectDescription());
         return entry;
     }
 
     protected PrayerEntry CreatePrayerEntry(string sourceId, Func<PlayerChoiceContext, Task> resolve)
     {
         return new PrayerEntry(sourceId, PrayerTurns, async (choiceContext, _) => await resolve(choiceContext));
+    }
+
+    private string GetPrayerEffectDescription()
+    {
+        var text = PrayerChoiceDescription.GetFormattedText().Trim();
+        var separator = text.IndexOf('：');
+        if (separator < 0)
+            separator = text.IndexOf(':');
+
+        return separator >= 0
+            ? text[(separator + 1)..].Trim()
+            : text;
     }
 
     protected override void AddExtraArgsToDescription(LocString description)

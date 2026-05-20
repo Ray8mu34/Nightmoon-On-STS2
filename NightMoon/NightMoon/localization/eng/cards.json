@@ -16,6 +16,8 @@
   "NIGHTMOON-NUN_ATTACK_PRAYER.prayerChoice.3.upgraded": "Prayer 3: Deal 15 damage.",
   "NIGHTMOON-NUN_ATTACK_PRAYER.prayerChoice.4.upgraded": "Prayer 4: Deal 18 damage.",
   "NIGHTMOON-PRAYER_TIER.selectionScreenPrompt": "Choose Prayer turns.",
+  "NIGHTMOON-PRAYER_ORB.title": "Trigger Prayer in {Turns} turns",
+  "NIGHTMOON-PRAYER_ORB.unknownDescription": "Unknown effect.",
   "NIGHTMOON-NUN_PEEK_FUTURE.title": "Peek Future",
   "NIGHTMOON-NUN_PEEK_FUTURE.description": "Draw 1 card.\nAdvance your current Prayers by 1 turn.",
   "NIGHTMOON-NUN_PIETY.title": "Piety",

@@ -16,6 +16,8 @@
   "NIGHTMOON-NUN_ATTACK_PRAYER.prayerChoice.3.upgraded": "祷告 3：造成 15 点伤害。",
   "NIGHTMOON-NUN_ATTACK_PRAYER.prayerChoice.4.upgraded": "祷告 4：造成 18 点伤害。",
   "NIGHTMOON-PRAYER_TIER.selectionScreenPrompt": "选择祷告回合数。",
+  "NIGHTMOON-PRAYER_ORB.title": "{Turns} 回合后触发祷告",
+  "NIGHTMOON-PRAYER_ORB.unknownDescription": "效果未知。",
   "NIGHTMOON-NUN_PEEK_FUTURE.title": "窥视未来",
   "NIGHTMOON-NUN_PEEK_FUTURE.description": "抽 1 张牌。\n当前祷告计时加快 1 回合。",
   "NIGHTMOON-NUN_PIETY.title": "虔诚",
