@@ -9,8 +9,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunFog() : NunCard(2, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [] : [CardKeyword.Exhaust];
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<NunFogPower>(2m)
@@ -32,5 +31,7 @@ public class NunFog() : NunCard(2, CardType.Skill, CardRarity.Common, TargetType
 
     protected override void OnUpgrade()
     {
+        _ = Keywords;
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

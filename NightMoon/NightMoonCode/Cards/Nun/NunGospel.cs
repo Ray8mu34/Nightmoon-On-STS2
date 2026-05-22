@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using NightMoon.NightMoonCode.Prayer;
 
@@ -8,8 +9,11 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunGospel() : NunCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [CardKeyword.Retain] : [];
+    public override List<CardKeyword> CanonicalKeywords => [];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Advance", 2m)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -26,7 +30,7 @@ public class NunGospel() : NunCard(2, CardType.Skill, CardRarity.Uncommon, Targe
         PrayerManager.OnPrayerResolved += TrackResolved;
         try
         {
-            await PrayerManager.Accelerate(choiceContext, Owner.Creature, 2);
+            await PrayerManager.Accelerate(choiceContext, Owner.Creature, (int)DynamicVars["Advance"].BaseValue);
         }
         finally
         {
@@ -58,5 +62,7 @@ public class NunGospel() : NunCard(2, CardType.Skill, CardRarity.Uncommon, Targe
 
     protected override void OnUpgrade()
     {
+        _ = Keywords;
+        AddKeyword(CardKeyword.Retain);
     }
 }

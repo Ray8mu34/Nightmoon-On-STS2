@@ -10,6 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunDemonBlade() : NunCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Divisor", 5m),
         new PowerVar<NunDemonBladePower>(0m)
     ];
 

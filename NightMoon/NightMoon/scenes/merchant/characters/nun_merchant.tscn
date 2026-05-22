@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://NightMoon/images/charui/nun_merchant.png" id="1_visual"]
+
+[node name="NunMerchant" type="Node2D"]
+
+[node name="Visuals" type="Sprite2D" parent="."]
+position = Vector2(0, -239)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_visual")

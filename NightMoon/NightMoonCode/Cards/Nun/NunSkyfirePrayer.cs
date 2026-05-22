@@ -32,7 +32,7 @@ public class NunSkyfirePrayer() : NunPrayerCard(2, CardType.Attack, CardRarity.C
                 context,
                 combatState.HittableEnemies.ToList(),
                 CalculateDamage() * (entry?.ValueMultiplier ?? 1m),
-                DynamicVars.Damage.Props,
+                ValueProp.Unblockable | ValueProp.Unpowered,
                 owner,
                 this);
         });
@@ -45,8 +45,19 @@ public class NunSkyfirePrayer() : NunPrayerCard(2, CardType.Attack, CardRarity.C
         DynamicVars.Damage.UpgradeValueBy(4m);
     }
 
-    private decimal CalculateDamage()
+    protected override void AddExtraArgsToPrayerText(LocString text)
     {
-        return DynamicVars.Damage.BaseValue + 5m * (PrayerTier - 1);
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", CalculateDamage(1));
+        text.Add("Value2", CalculateDamage(2));
+        text.Add("Value3", CalculateDamage(3));
+        text.Add("ChoiceValue", CalculateDamage(PrayerTier));
+    }
+
+    private decimal CalculateDamage() => CalculateDamage(PrayerTier);
+
+    private decimal CalculateDamage(int tier)
+    {
+        return DynamicVars.Damage.BaseValue + 5m * (tier - 1);
     }
 }

@@ -10,6 +10,10 @@ public class NunRetaliation() : NunCard(1, CardType.Attack, CardRarity.Rare, Tar
 {
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Cap", 20m)
+    ];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var combatState = Owner.Creature.CombatState;
@@ -17,7 +21,7 @@ public class NunRetaliation() : NunCard(1, CardType.Attack, CardRarity.Rare, Tar
             return;
 
         var lostHp = Owner.Creature.MaxHp - Owner.Creature.CurrentHp;
-        var cap = IsUpgraded ? 25 : 20;
+        var cap = DynamicVars["Cap"].BaseValue;
         var damage = Math.Min(lostHp, cap);
 
         await CreatureCmd.Damage(
@@ -31,5 +35,6 @@ public class NunRetaliation() : NunCard(1, CardType.Attack, CardRarity.Rare, Tar
 
     protected override void OnUpgrade()
     {
+        DynamicVars["Cap"].UpgradeValueBy(5m);
     }
 }

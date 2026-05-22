@@ -11,7 +11,8 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunPiety() : NunCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(6m, ValueProp.Move)
+        ..MakeCalculatedBlock(6, static (_, _) => 0m),
+        new DynamicVar("Advance", 1m)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -20,13 +21,13 @@ public class NunPiety() : NunCard(1, CardType.Skill, CardRarity.Common, TargetTy
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PrayerManager.Accelerate(choiceContext, Owner.Creature, 1);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, DynamicVars.CalculatedBlock.Props, cardPlay);
+        await PrayerManager.Accelerate(choiceContext, Owner.Creature, (int)DynamicVars["Advance"].BaseValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 }
 

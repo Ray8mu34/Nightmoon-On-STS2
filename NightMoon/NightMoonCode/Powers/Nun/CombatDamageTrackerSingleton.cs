@@ -1,5 +1,4 @@
 using BaseLib.Abstracts;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -9,16 +8,19 @@ using NightMoon.NightMoonCode.Prayer;
 
 namespace NightMoon.NightMoonCode.Powers.Nun;
 
-/// <summary>
-/// 战斗单例：通过 AfterDamageGiven 追踪每回合总伤害，供正义天平等卡牌使用。
-/// </summary>
 public class CombatDamageTrackerSingleton() : CustomSingletonModel(true, false)
 {
     private int currentTurnDamage;
 
+    public override Task BeforeCombatStart()
+    {
+        currentTurnDamage = 0;
+        DamageTracker.Clear();
+        return Task.CompletedTask;
+    }
+
     public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        // 回合开始时：将当前伤害归档为上回合伤害，重置
         DamageTracker.SetLastTurnDamage(player.Creature, currentTurnDamage);
         currentTurnDamage = 0;
         return Task.CompletedTask;
@@ -35,10 +37,14 @@ public class CombatDamageTrackerSingleton() : CustomSingletonModel(true, false)
         if (dealer == null || result.UnblockedDamage <= 0)
             return Task.CompletedTask;
 
-        // 只统计玩家造成的伤害
         if (dealer.IsPlayer || dealer.PetOwner != null)
         {
-            currentTurnDamage += result.UnblockedDamage;
+            var damage = (int)result.UnblockedDamage;
+            currentTurnDamage += damage;
+
+            var playerCreature = dealer.IsPlayer ? dealer : dealer.PetOwner?.Creature;
+            if (playerCreature != null)
+                DamageTracker.AddCombatDamage(playerCreature, damage);
         }
 
         return Task.CompletedTask;

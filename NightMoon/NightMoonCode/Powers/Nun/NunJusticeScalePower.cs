@@ -23,8 +23,8 @@ public class NunJusticeScalePower() : NunPower
         if (enemies == null || enemies.Count == 0 || Amount <= 0)
             return;
 
-        var lastTurnDamage = DamageTracker.GetLastTurnDamage(Owner);
-        var damage = Math.Max(0m, lastTurnDamage * Amount / 100m);
+        var combatDamage = DamageTracker.GetCombatDamage(Owner);
+        var damage = Math.Max(0m, combatDamage * Amount / 100m);
         if (damage <= 0)
             return;
 

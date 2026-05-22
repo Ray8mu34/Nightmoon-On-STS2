@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using NightMoon.NightMoonCode.Prayer;
 
@@ -9,12 +10,16 @@ public class NunRebirthPrayer() : NunPrayerCard(2, CardType.Skill, CardRarity.Ra
 {
     protected override int PrayerTurns => 2;
 
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Create", 3m)
+    ];
+
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)
     {
         PrayerEntry? entry = null;
         entry = new PrayerEntry(Id.Entry, PrayerTurns, async (choiceContext, owner) =>
         {
-            var count = (int)((IsUpgraded ? 4m : 3m) * (entry?.ValueMultiplier ?? 1m));
+            var count = (int)(DynamicVars["Create"].BaseValue * (entry?.ValueMultiplier ?? 1m));
             for (var i = 0; i < count; i++)
             {
                 var prayer = CreateRandomPrayerCard();
@@ -47,5 +52,6 @@ public class NunRebirthPrayer() : NunPrayerCard(2, CardType.Skill, CardRarity.Ra
 
     protected override void OnUpgrade()
     {
+        DynamicVars["Create"].UpgradeValueBy(1m);
     }
 }

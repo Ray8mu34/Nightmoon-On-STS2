@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.ValueProps;
 using NightMoon.NightMoonCode.Powers.Nun;
 
 namespace NightMoon.NightMoonCode.Cards.Nun;
@@ -11,7 +10,8 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunThornStrike() : NunCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(6m, ValueProp.Move)
+        ..MakeCalculatedDamage(6, static (_, _) => 0m),
+        new DynamicVar("Confession", 6m)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -20,18 +20,19 @@ public class NunThornStrike() : NunCard(1, CardType.Attack, CardRarity.Uncommon,
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
 
         await PowerCmd.Apply<NunConfessionPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars.Damage.BaseValue,
+            DynamicVars["Confession"].BaseValue,
             Owner.Creature,
             this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars.CalculationBase.UpgradeValueBy(2m);
+        DynamicVars["Confession"].UpgradeValueBy(2m);
     }
 }

@@ -13,6 +13,7 @@ public class NunDivineProtection() : NunCard(3, CardType.Skill, CardRarity.Rare,
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Advance", 1m),
         new PowerVar<BufferPower>(1m)
     ];
 
@@ -29,7 +30,7 @@ public class NunDivineProtection() : NunCard(3, CardType.Skill, CardRarity.Rare,
             Owner.Creature,
             this);
 
-        await PrayerManager.Accelerate(choiceContext, Owner.Creature, 1);
+        await PrayerManager.Accelerate(choiceContext, Owner.Creature, (int)DynamicVars["Advance"].BaseValue);
     }
 
     protected override void OnUpgrade()

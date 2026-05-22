@@ -10,6 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunLinkedCasting() : NunCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Draw", 1m),
         new PowerVar<NunLinkedCastingPower>(2m)
     ];
 

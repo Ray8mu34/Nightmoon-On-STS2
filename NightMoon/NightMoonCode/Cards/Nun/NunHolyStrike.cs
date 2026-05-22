@@ -9,18 +9,18 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunHolyStrike() : NunCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(3m, ValueProp.Move)
+        ..MakeCalculatedDamage(3, static (_, _) => 0m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
 
-        await CreatureCmd.Heal(Owner.Creature, DynamicVars.Damage.BaseValue);
+        await CreatureCmd.Heal(Owner.Creature, DynamicVars.CalculationBase.BaseValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 }

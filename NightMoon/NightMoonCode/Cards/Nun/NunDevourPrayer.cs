@@ -53,4 +53,13 @@ public class NunDevourPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Rar
     {
         EnergyCost.SetCustomBaseCost(0);
     }
+
+    protected override void AddExtraArgsToPrayerText(LocString text)
+    {
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", 1m);
+        text.Add("Value2", 2m);
+        text.Add("Value3", 3m);
+        text.Add("ChoiceValue", PrayerTier);
+    }
 }

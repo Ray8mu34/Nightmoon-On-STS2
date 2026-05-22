@@ -3,13 +3,10 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 
 namespace NightMoon.NightMoonCode.Prayer;
 
-/// <summary>
-/// 追踪每个玩家上回合造成的总伤害，用于正义天平等卡牌效果。
-/// 由 CombatDamageTrackerSingleton 在每回合开始时更新。
-/// </summary>
 public static class DamageTracker
 {
     private static readonly Dictionary<Creature, int> LastTurnDamage = new();
+    private static readonly Dictionary<Creature, int> CombatDamage = new();
 
     public static void SetLastTurnDamage(Creature playerCreature, int damage)
     {
@@ -21,8 +18,22 @@ public static class DamageTracker
         return LastTurnDamage.GetValueOrDefault(playerCreature, 0);
     }
 
+    public static void AddCombatDamage(Creature playerCreature, int damage)
+    {
+        if (damage <= 0)
+            return;
+
+        CombatDamage[playerCreature] = CombatDamage.GetValueOrDefault(playerCreature, 0) + damage;
+    }
+
+    public static int GetCombatDamage(Creature playerCreature)
+    {
+        return CombatDamage.GetValueOrDefault(playerCreature, 0);
+    }
+
     public static void Clear()
     {
         LastTurnDamage.Clear();
+        CombatDamage.Clear();
     }
 }

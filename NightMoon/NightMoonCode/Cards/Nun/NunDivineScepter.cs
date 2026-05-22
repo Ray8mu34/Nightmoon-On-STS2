@@ -10,8 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunDivineScepter() : NunCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [CardKeyword.Exhaust, CardKeyword.Retain] : [CardKeyword.Exhaust];
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -44,5 +43,7 @@ public class NunDivineScepter() : NunCard(2, CardType.Skill, CardRarity.Rare, Ta
 
     protected override void OnUpgrade()
     {
+        _ = Keywords;
+        AddKeyword(CardKeyword.Retain);
     }
 }

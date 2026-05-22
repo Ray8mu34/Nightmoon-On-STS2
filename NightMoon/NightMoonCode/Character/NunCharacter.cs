@@ -62,6 +62,7 @@ public class NunCharacter : PlaceholderCharacterModel
     public override string CustomCharacterSelectIconPath => "nun_character_select.png".CharacterUiPath();
     public override string CustomCharacterSelectLockedIconPath => "nun_character_select_locked.png".CharacterUiPath();
     public override string CustomCharacterSelectBg => Path.Join(MainFile.ResPath, "scenes", "screens", "char_select", "nun_character_select_bg.tscn");
+    public override string CustomMerchantAnimPath => Path.Join(MainFile.ResPath, "scenes", "merchant", "characters", "nun_merchant.tscn");
     public override string CustomMapMarkerPath => "nun_map_marker.png".CharacterUiPath();
 
     public override NCreatureVisuals? CreateCustomVisuals()

@@ -10,20 +10,22 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunTwistedFuture() : NunCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(7m, ValueProp.Move)
+        ..MakeCalculatedDamage(7, static (_, _) => 0m),
+        new DynamicVar("ConfessionThreshold", 5m),
+        new DynamicVar("BonusDamage", 4m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
 
         var confessionAmount = Owner.Creature.GetPowerAmount<NunConfessionPower>();
-        if (confessionAmount > 5)
+        if (confessionAmount > DynamicVars["ConfessionThreshold"].BaseValue)
         {
             await CreatureCmd.Damage(
                 choiceContext,
                 cardPlay.Target!,
-                4m,
+                DynamicVars["BonusDamage"].BaseValue,
                 ValueProp.Move,
                 Owner.Creature,
                 this);
@@ -32,6 +34,6 @@ public class NunTwistedFuture() : NunCard(1, CardType.Attack, CardRarity.Common,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }

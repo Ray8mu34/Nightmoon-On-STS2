@@ -10,6 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunPractice() : NunCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Draw", 1m),
         new PowerVar<NunConfessionPower>(4m)
     ];
 
@@ -19,7 +20,7 @@ public class NunPractice() : NunCard(1, CardType.Skill, CardRarity.Common, Targe
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, 1, Owner);
+        await CardPileCmd.Draw(choiceContext, (int)DynamicVars["Draw"].BaseValue, Owner);
         await PowerCmd.Apply<NunConfessionPower>(
             choiceContext,
             Owner.Creature,

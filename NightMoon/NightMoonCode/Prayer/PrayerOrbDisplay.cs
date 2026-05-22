@@ -10,7 +10,7 @@ public static class PrayerOrbDisplay
 {
     private const string NodeNamePrefix = "NightMoonPrayerOrb";
     private const float SlotGap = 72f;
-    private const float YOffset = -118f;
+    private const float YOffset = 110f;
 
     private static readonly Dictionary<Creature, List<NOrb>> NodesByOwner = [];
 
@@ -40,7 +40,7 @@ public static class PrayerOrbDisplay
             var orb = NOrb.Create(true, model);
             orb.Name = $"{NodeNamePrefix}{i}";
             orb.Position = new Vector2(startX + i * SlotGap, YOffset);
-            orb.ZIndex = -10;
+            orb.ZIndex = 0;
             orbManager.AddChild(orb);
             nodes.Add(orb);
         }

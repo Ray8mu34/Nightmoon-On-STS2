@@ -34,4 +34,17 @@ public class NunManaPrayer() : NunPrayerCard(0, CardType.Skill, CardRarity.Uncom
     protected override void OnUpgrade()
     {
     }
+
+    protected override void AddExtraArgsToPrayerText(LocString text)
+    {
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", CalculateEnergy(1));
+        text.Add("Value2", CalculateEnergy(2));
+        text.Add("ChoiceValue", CalculateEnergy(PrayerTier));
+    }
+
+    private decimal CalculateEnergy(int tier)
+    {
+        return (IsUpgraded ? 3m : 2m) + tier - 1;
+    }
 }

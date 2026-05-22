@@ -34,4 +34,18 @@ public class NunSwiftPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Unco
     protected override void OnUpgrade()
     {
     }
+
+    protected override void AddExtraArgsToPrayerText(LocString text)
+    {
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", CalculateDraw(1));
+        text.Add("Value2", CalculateDraw(2));
+        text.Add("Value3", CalculateDraw(3));
+        text.Add("ChoiceValue", CalculateDraw(PrayerTier));
+    }
+
+    private decimal CalculateDraw(int tier)
+    {
+        return (IsUpgraded ? 3m : 2m) + tier - 1;
+    }
 }

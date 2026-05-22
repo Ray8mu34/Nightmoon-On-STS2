@@ -10,6 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunShortcut() : NunCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Reduction", 1m),
         new PowerVar<NunShortcutPower>(2m)
     ];
 
@@ -22,7 +23,7 @@ public class NunShortcut() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Tar
         await PowerCmd.Apply<NunShortcutPower>(
             choiceContext,
             Owner.Creature,
-            IsUpgraded ? 3m : DynamicVars[typeof(NunShortcutPower).Name].BaseValue,
+            DynamicVars[typeof(NunShortcutPower).Name].BaseValue,
             Owner.Creature,
             this);
     }

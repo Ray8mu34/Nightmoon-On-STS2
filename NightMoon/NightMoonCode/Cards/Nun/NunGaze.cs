@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunGaze() : NunCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(7m, ValueProp.Move),
+        ..MakeCalculatedDamage(7, static (_, _) => 0m),
         new PowerVar<VulnerablePower>(2m)
     ];
 
@@ -21,7 +21,7 @@ public class NunGaze() : NunCard(1, CardType.Attack, CardRarity.Common, TargetTy
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
 
         await PowerCmd.Apply<VulnerablePower>(
             choiceContext,
@@ -33,6 +33,6 @@ public class NunGaze() : NunCard(1, CardType.Attack, CardRarity.Common, TargetTy
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }

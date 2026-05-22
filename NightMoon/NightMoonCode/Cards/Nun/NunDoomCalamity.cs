@@ -9,7 +9,10 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunDoomCalamity() : NunCard(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Advance", 1m),
+        new PowerVar<NunDoomCalamityPower>(1m)
+    ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromPower<NunDoomCalamityPower>()
@@ -20,7 +23,7 @@ public class NunDoomCalamity() : NunCard(2, CardType.Power, CardRarity.Rare, Tar
         await PowerCmd.Apply<NunDoomCalamityPower>(
             choiceContext,
             Owner.Creature,
-            1m,
+            DynamicVars[typeof(NunDoomCalamityPower).Name].BaseValue,
             Owner.Creature,
             this);
     }

@@ -12,16 +12,16 @@ public class NunBomb() : NunCard(1, CardType.Attack, CardRarity.Uncommon, Target
     public override List<CardKeyword> CanonicalKeywords => [BaseLibKeywords.Purge];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(30m, ValueProp.Move)
+        ..MakeCalculatedDamage(30, static (_, _) => 0m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(10m);
+        DynamicVars.CalculationBase.UpgradeValueBy(10m);
     }
 }

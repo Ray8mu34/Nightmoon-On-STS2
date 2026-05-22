@@ -11,8 +11,6 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunDivinePunishment() : NunPrayerCard(2, CardType.Attack, CardRarity.Rare, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords => [NunKeywords.Prayer, CardKeyword.Exhaust];
-
     protected override int PrayerTurns => IsUpgraded ? 3 : 4;
 
     protected override PrayerEntry CreatePrayerEntry(CardPlay cardPlay)

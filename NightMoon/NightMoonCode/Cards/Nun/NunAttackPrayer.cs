@@ -36,7 +36,13 @@ public class NunAttackPrayer() : NunPrayerCard(1, CardType.Attack, CardRarity.Ba
             if (resolvedTarget is null)
                 return;
 
-            await CreatureCmd.Damage(context, resolvedTarget, damage * (entry?.ValueMultiplier ?? 1m), DynamicVars.Damage.Props, owner, this);
+            await CreatureCmd.Damage(
+                context,
+                resolvedTarget,
+                damage * (entry?.ValueMultiplier ?? 1m),
+                ValueProp.Unblockable | ValueProp.Unpowered,
+                owner,
+                this);
         });
 
         return entry;
@@ -47,10 +53,22 @@ public class NunAttackPrayer() : NunPrayerCard(1, CardType.Attack, CardRarity.Ba
         DynamicVars.Damage.UpgradeValueBy(3m);
     }
 
-    private decimal CalculateDamage()
+    protected override void AddExtraArgsToPrayerText(LocString text)
+    {
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", CalculateDamage(1));
+        text.Add("Value2", CalculateDamage(2));
+        text.Add("Value3", CalculateDamage(3));
+        text.Add("Value4", CalculateDamage(4));
+        text.Add("ChoiceValue", CalculateDamage(PrayerTier));
+    }
+
+    private decimal CalculateDamage() => CalculateDamage(PrayerTier);
+
+    private decimal CalculateDamage(int tier)
     {
         var baseDmg = DynamicVars.Damage.BaseValue;
-        return baseDmg + DamagePerAdditionalTier * (PrayerTier - 1);
+        return baseDmg + DamagePerAdditionalTier * (tier - 1);
     }
 
     private static Creature? ResolveTarget(Creature owner, Creature? preferredTarget)

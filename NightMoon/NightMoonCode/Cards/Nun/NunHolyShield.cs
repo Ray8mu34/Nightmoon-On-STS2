@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunHolyShield() : NunCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(8m, ValueProp.Move),
+        ..MakeCalculatedBlock(8, static (_, _) => 0m),
         new PowerVar<ArtifactPower>(1m)
     ];
 
@@ -22,7 +22,7 @@ public class NunHolyShield() : NunCard(1, CardType.Skill, CardRarity.Uncommon, T
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, DynamicVars.CalculatedBlock.Props, cardPlay);
         await PowerCmd.Apply<ArtifactPower>(
             choiceContext,
             Owner.Creature,
@@ -33,7 +33,7 @@ public class NunHolyShield() : NunCard(1, CardType.Skill, CardRarity.Uncommon, T
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 }
 

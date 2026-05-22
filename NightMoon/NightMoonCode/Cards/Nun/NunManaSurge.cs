@@ -9,10 +9,10 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunManaSurge() : NunCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [] : [CardKeyword.Ethereal];
+    public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Energy", 1m),
         new PowerVar<NunManaSurgePower>(1m)
     ];
 
@@ -32,5 +32,7 @@ public class NunManaSurge() : NunCard(1, CardType.Power, CardRarity.Uncommon, Ta
 
     protected override void OnUpgrade()
     {
+        _ = Keywords;
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 }

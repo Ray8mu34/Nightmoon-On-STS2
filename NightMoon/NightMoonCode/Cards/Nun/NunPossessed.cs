@@ -9,14 +9,17 @@ public class NunPossessed() : NunCard(0, CardType.Skill, CardRarity.Uncommon, Ta
 {
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Draw", 2m)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.Draw(choiceContext, IsUpgraded ? 3 : 2, Owner);
+        await CardPileCmd.Draw(choiceContext, (int)DynamicVars["Draw"].BaseValue, Owner);
     }
 
     protected override void OnUpgrade()
     {
+        DynamicVars["Draw"].UpgradeValueBy(1m);
     }
 }

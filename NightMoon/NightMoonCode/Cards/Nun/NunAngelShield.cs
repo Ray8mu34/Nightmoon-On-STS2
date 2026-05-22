@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace NightMoon.NightMoonCode.Cards.Nun;
@@ -11,7 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunAngelShield() : NunCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(9m, ValueProp.Move)
+        ..MakeCalculatedBlock(9, static (_, _) => 0m)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -20,21 +19,15 @@ public class NunAngelShield() : NunCard(1, CardType.Skill, CardRarity.Common, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, DynamicVars.CalculatedBlock.Props, cardPlay);
 
-        var clone = CombatState.CreateCard(ModelDb.GetById<CardModel>(Id), Owner);
-        for (var i = 0; i < CurrentUpgradeLevel; i++)
-        {
-            clone.UpgradeInternal();
-            clone.FinalizeUpgradeInternal();
-        }
-
-        await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Draw, Owner);
+        var clone = CreateClone();
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(clone, PileType.Draw, Owner), 2.2f);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }
 

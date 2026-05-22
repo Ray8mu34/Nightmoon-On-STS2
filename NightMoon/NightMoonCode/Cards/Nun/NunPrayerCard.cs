@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using NightMoon.NightMoonCode.Powers.Nun;
 using NightMoon.NightMoonCode.Prayer;
@@ -17,13 +18,14 @@ public abstract class NunPrayerCard(int cost, CardType type, CardRarity rarity, 
     protected abstract int PrayerTurns { get; }
 
     /// <summary>
-    /// 祷告档位（1-4），影响祷告回合数和效果强度。默认为1。
-    /// 子类可重写以支持多档选择。
+    /// Prayer tier (usually 1-4), controlling the delay and effect strength.
+    /// Subclasses can override the min/max tier to support multiple choices.
     /// </summary>
     protected virtual int PrayerTier => _prayerTier;
     protected virtual int MinPrayerTier => 1;
     protected virtual int MaxPrayerTier => 1;
     protected virtual LocString PrayerChoiceDescription => Description;
+    protected virtual LocString NormalPrayerDescription => new("cards", $"{Id.Entry}.normalDescription");
 
     public void SetPrayerTier(int tier)
     {
@@ -33,7 +35,7 @@ public abstract class NunPrayerCard(int cost, CardType type, CardRarity rarity, 
     private int _prayerTier = 1;
     private bool _isPrayerChoice;
 
-    public override List<CardKeyword> CanonicalKeywords => [NunKeywords.Prayer, CardKeyword.Exhaust];
+    public override List<CardKeyword> CanonicalKeywords => [NunKeywords.Prayer];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
         HoverTipFactory.FromPower<NunPrayerZonePower>()
@@ -115,7 +117,9 @@ public abstract class NunPrayerCard(int cost, CardType type, CardRarity rarity, 
 
     private string GetPrayerEffectDescription()
     {
-        var text = PrayerChoiceDescription.GetFormattedText().Trim();
+        var prayerChoiceDescription = PrayerChoiceDescription;
+        AddExtraArgsToPrayerText(prayerChoiceDescription);
+        var text = prayerChoiceDescription.GetFormattedText().Trim();
         var separator = text.IndexOf('：');
         if (separator < 0)
             separator = text.IndexOf(':');
@@ -128,12 +132,20 @@ public abstract class NunPrayerCard(int cost, CardType type, CardRarity rarity, 
     protected override void AddExtraArgsToDescription(LocString description)
     {
         base.AddExtraArgsToDescription(description);
-        var normalDescription = new LocString("cards", $"{Id.Entry}.normalDescription");
+        var normalDescription = NormalPrayerDescription;
+        var prayerChoiceDescription = PrayerChoiceDescription;
+        AddExtraArgsToPrayerText(normalDescription);
+        AddExtraArgsToPrayerText(prayerChoiceDescription);
         description.Add("IsPrayerChoice", _isPrayerChoice);
         description.Add("PrayerText", _isPrayerChoice
-            ? PrayerChoiceDescription.GetFormattedText()
+            ? prayerChoiceDescription.GetFormattedText()
             : normalDescription.Exists()
                 ? normalDescription.GetFormattedText()
                 : "");
+    }
+
+    protected virtual void AddExtraArgsToPrayerText(LocString text)
+    {
+        DynamicVars.AddTo(text);
     }
 }

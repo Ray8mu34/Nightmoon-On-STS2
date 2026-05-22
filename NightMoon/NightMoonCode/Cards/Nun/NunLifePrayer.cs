@@ -9,6 +9,8 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunLifePrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
+    public override List<CardKeyword> CanonicalKeywords => [NunKeywords.Prayer, CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new HpLossVar(3m)
     ];
@@ -34,9 +36,20 @@ public class NunLifePrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Uncom
         DynamicVars.HpLoss.UpgradeValueBy(2m);
     }
 
-    private decimal CalculateHeal()
+    protected override void AddExtraArgsToPrayerText(LocString text)
     {
-        return DynamicVars.HpLoss.BaseValue + PrayerTier switch
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", CalculateHeal(1));
+        text.Add("Value2", CalculateHeal(2));
+        text.Add("Value3", CalculateHeal(3));
+        text.Add("ChoiceValue", CalculateHeal(PrayerTier));
+    }
+
+    private decimal CalculateHeal() => CalculateHeal(PrayerTier);
+
+    private decimal CalculateHeal(int tier)
+    {
+        return DynamicVars.HpLoss.BaseValue + tier switch
         {
             1 => 0m,
             2 => 2m,

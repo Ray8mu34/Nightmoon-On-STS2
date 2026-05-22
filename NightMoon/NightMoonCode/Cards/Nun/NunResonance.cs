@@ -4,14 +4,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunResonance() : NunCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(11m, ValueProp.Move),
+        ..MakeCalculatedBlock(11, static (_, _) => 0m),
         new PowerVar<WeakPower>(3m)
     ];
 
@@ -22,7 +21,7 @@ public class NunResonance() : NunCard(2, CardType.Skill, CardRarity.Uncommon, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, DynamicVars.CalculatedBlock.Props, cardPlay);
         await PowerCmd.Apply<WeakPower>(
             choiceContext,
             cardPlay.Target!,
@@ -33,7 +32,7 @@ public class NunResonance() : NunCard(2, CardType.Skill, CardRarity.Uncommon, Ta
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(4m);
+        DynamicVars.CalculationBase.UpgradeValueBy(4m);
     }
 }
 

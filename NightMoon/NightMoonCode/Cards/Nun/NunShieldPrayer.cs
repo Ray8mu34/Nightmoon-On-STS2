@@ -44,4 +44,22 @@ public class NunShieldPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Unc
     protected override void OnUpgrade()
     {
     }
+
+    protected override void AddExtraArgsToPrayerText(LocString text)
+    {
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Delay1", CalculateDelay(1));
+        text.Add("Delay2", CalculateDelay(2));
+        text.Add("Delay3", CalculateDelay(3));
+        text.Add("Duration1", 1m);
+        text.Add("Duration2", 2m);
+        text.Add("Duration3", 3m);
+        text.Add("ChoiceDelay", CalculateDelay(PrayerTier));
+        text.Add("ChoiceDuration", PrayerTier);
+    }
+
+    private decimal CalculateDelay(int tier)
+    {
+        return IsUpgraded ? tier - 1 : tier;
+    }
 }

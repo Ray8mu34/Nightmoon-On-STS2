@@ -3,11 +3,16 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunMemory() : NunCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Choose", 1m)
+    ];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var exhaustPile = Owner.PlayerCombatState.ExhaustPile.Cards
@@ -16,7 +21,7 @@ public class NunMemory() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Targe
         if (exhaustPile.Count == 0)
             return;
 
-        var selectCount = Math.Min(IsUpgraded ? 2 : 1, exhaustPile.Count);
+        var selectCount = Math.Min((int)DynamicVars["Choose"].BaseValue, exhaustPile.Count);
         var selected = await CardSelectCmd.FromSimpleGrid(
             choiceContext,
             exhaustPile,
@@ -32,5 +37,6 @@ public class NunMemory() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Targe
 
     protected override void OnUpgrade()
     {
+        DynamicVars["Choose"].UpgradeValueBy(1m);
     }
 }

@@ -29,6 +29,6 @@ public class NunJusticeScale() : NunCard(3, CardType.Power, CardRarity.Ancient, 
 
     protected override void OnUpgrade()
     {
-        EnergyCost.SetCustomBaseCost(2);
+        DynamicVars[typeof(NunJusticeScalePower).Name].UpgradeValueBy(10m);
     }
 }

@@ -9,8 +9,10 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunDefend() : NunCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(5m, ValueProp.Move)
+        ..MakeCalculatedBlock(5, static (_, _) => 0m)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -19,12 +21,12 @@ public class NunDefend() : NunCard(1, CardType.Skill, CardRarity.Basic, TargetTy
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, DynamicVars.CalculatedBlock.Props, cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }
 

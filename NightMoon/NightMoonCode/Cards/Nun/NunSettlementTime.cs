@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using NightMoon.NightMoonCode.Prayer;
 
@@ -10,10 +11,14 @@ public class NunSettlementTime() : NunCard(2, CardType.Attack, CardRarity.Rare, 
 {
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Percent", 50m)
+    ];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var lastTurnDamage = DamageTracker.GetLastTurnDamage(Owner.Creature);
-        var multiplier = IsUpgraded ? 0.75m : 0.5m;
+        var multiplier = DynamicVars["Percent"].BaseValue / 100m;
         var damage = Math.Max(lastTurnDamage * multiplier, 0m);
 
         await CreatureCmd.Damage(
@@ -27,5 +32,6 @@ public class NunSettlementTime() : NunCard(2, CardType.Attack, CardRarity.Rare, 
 
     protected override void OnUpgrade()
     {
+        DynamicVars["Percent"].UpgradeValueBy(25m);
     }
 }

@@ -13,9 +13,6 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunDoomPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Common, TargetType.AnyEnemy)
 {
-    public override List<CardKeyword> CanonicalKeywords =>
-        IsUpgraded ? [NunKeywords.Prayer] : [NunKeywords.Prayer, CardKeyword.Exhaust];
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<WeakPower>(2m)
     ];

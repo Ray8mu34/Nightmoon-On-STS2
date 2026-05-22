@@ -11,18 +11,18 @@ public class NunLifeDrain() : NunCard(3, CardType.Attack, CardRarity.Rare, Targe
     public override List<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(15m, ValueProp.Move)
+        ..MakeCalculatedDamage(15, static (_, _) => 0m)
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.Damage, this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
 
-        await CreatureCmd.Heal(Owner.Creature, DynamicVars.Damage.BaseValue);
+        await CreatureCmd.Heal(Owner.Creature, DynamicVars.CalculationBase.BaseValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }

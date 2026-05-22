@@ -11,7 +11,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunSilentPrayer() : NunCard(0, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new BlockVar(3m, ValueProp.Move)
+        ..MakeCalculatedBlock(3, static (_, _) => 0m)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -20,7 +20,7 @@ public class NunSilentPrayer() : NunCard(0, CardType.Skill, CardRarity.Common, T
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.BaseValue, DynamicVars.CalculatedBlock.Props, cardPlay);
         if (PrayerManager.Count(Owner.Creature) > 0)
         {
             await CardPileCmd.Draw(choiceContext, 1, Owner);
@@ -29,7 +29,7 @@ public class NunSilentPrayer() : NunCard(0, CardType.Skill, CardRarity.Common, T
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.CalculationBase.UpgradeValueBy(2m);
     }
 }
 

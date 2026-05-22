@@ -10,6 +10,7 @@ namespace NightMoon.NightMoonCode.Cards.Nun;
 public class NunLifeCharm() : NunCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DynamicVar("Interval", 3m),
         new PowerVar<NunLifeCharmPower>(3m)
     ];
 

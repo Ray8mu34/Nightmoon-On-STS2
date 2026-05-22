@@ -4,14 +4,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunSacredStrike() : NunCard(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(18m, ValueProp.Move),
+        ..MakeCalculatedDamage(18, static (_, _) => 0m),
         new PowerVar<WeakPower>(1m)
     ];
 
@@ -21,13 +20,7 @@ public class NunSacredStrike() : NunCard(1, CardType.Attack, CardRarity.Rare, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CreatureCmd.Damage(
-            choiceContext,
-            cardPlay.Target!,
-            DynamicVars.Damage.BaseValue,
-            DynamicVars.Damage.Props,
-            Owner.Creature,
-            this);
+        await CreatureCmd.Damage(choiceContext, cardPlay.Target!, DynamicVars.CalculatedDamage.BaseValue, DynamicVars.CalculatedDamage.Props, Owner.Creature, this);
 
         await PowerCmd.Apply<WeakPower>(
             choiceContext,
@@ -39,6 +32,6 @@ public class NunSacredStrike() : NunCard(1, CardType.Attack, CardRarity.Rare, Ta
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(6m);
+        DynamicVars.CalculationBase.UpgradeValueBy(6m);
     }
 }

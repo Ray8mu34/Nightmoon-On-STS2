@@ -4,14 +4,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace NightMoon.NightMoonCode.Cards.Nun;
 
 public class NunWeakRay() : NunCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(13m, ValueProp.Move),
+        ..MakeCalculatedDamage(13, static (_, _) => 0m),
         new PowerVar<WeakPower>(1m)
     ];
 
@@ -28,8 +27,8 @@ public class NunWeakRay() : NunCard(2, CardType.Attack, CardRarity.Uncommon, Tar
         await CreatureCmd.Damage(
             choiceContext,
             combatState.HittableEnemies.ToList(),
-            DynamicVars.Damage.BaseValue,
-            DynamicVars.Damage.Props,
+            DynamicVars.CalculatedDamage.BaseValue,
+            DynamicVars.CalculatedDamage.Props,
             Owner.Creature,
             this);
 

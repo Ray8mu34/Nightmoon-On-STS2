@@ -32,7 +32,7 @@ public class NunDoomHaunt() : NunPrayerCard(2, CardType.Skill, CardRarity.Uncomm
                 context,
                 resolvedTarget,
                 DynamicVars.Damage.BaseValue * (entry?.ValueMultiplier ?? 1m),
-                DynamicVars.Damage.Props,
+                ValueProp.Unblockable | ValueProp.Unpowered,
                 owner,
                 this);
         });

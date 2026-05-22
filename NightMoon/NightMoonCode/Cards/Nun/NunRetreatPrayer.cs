@@ -41,9 +41,20 @@ public class NunRetreatPrayer() : NunPrayerCard(1, CardType.Skill, CardRarity.Co
         DynamicVars.Block.UpgradeValueBy(3m);
     }
 
-    private decimal CalculateBlock()
+    protected override void AddExtraArgsToPrayerText(LocString text)
     {
-        return DynamicVars.Block.BaseValue + 3m * (PrayerTier - 1);
+        base.AddExtraArgsToPrayerText(text);
+        text.Add("Value1", CalculateBlock(1));
+        text.Add("Value2", CalculateBlock(2));
+        text.Add("Value3", CalculateBlock(3));
+        text.Add("ChoiceValue", CalculateBlock(PrayerTier));
+    }
+
+    private decimal CalculateBlock() => CalculateBlock(PrayerTier);
+
+    private decimal CalculateBlock(int tier)
+    {
+        return DynamicVars.Block.BaseValue + 3m * (tier - 1);
     }
 }
 
