@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using NightMoon.NightMoonCode.Extensions;
 
 namespace NightMoon.NightMoonCode.Character;
@@ -19,4 +20,15 @@ public class NunCardPool : CustomCardPoolModel
     public override float V => 0.5411765f;
 
     public override bool IsColorless => false;
+
+    public override Texture2D? CustomFrame(CustomCardModel card)
+    {
+        return card.Type switch
+        {
+            CardType.Attack => ResourceLoader.Load<Texture2D>("card_frames/nun_attack_card_frame.png".ImagePath()),
+            CardType.Skill => ResourceLoader.Load<Texture2D>("card_frames/nun_skill_card_frame.png".ImagePath()),
+            CardType.Power => ResourceLoader.Load<Texture2D>("card_frames/nun_power_card_frame.png".ImagePath()),
+            _ => null
+        };
+    }
 }

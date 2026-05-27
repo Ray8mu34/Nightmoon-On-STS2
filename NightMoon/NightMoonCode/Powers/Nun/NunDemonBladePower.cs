@@ -9,15 +9,15 @@ namespace NightMoon.NightMoonCode.Powers.Nun;
 
 public class NunDemonBladePower() : NunPower
 {
-    private decimal bonusDamage;
+    private decimal divisor = 5m;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public void AddBonusDamage(decimal amount)
+    public void SetDivisor(decimal value)
     {
-        if (amount > 0)
-            bonusDamage += amount;
+        if (value > 0)
+            divisor = Math.Min(divisor, value);
     }
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
@@ -34,7 +34,7 @@ public class NunDemonBladePower() : NunPower
         var target = enemies[index];
 
         var totalFloor = Owner.Player?.RunState?.TotalFloor ?? 0;
-        var damage = Math.Max(0m, totalFloor / 5m + bonusDamage);
+        var damage = Math.Max(0m, totalFloor / divisor);
         if (damage <= 0)
             return;
 

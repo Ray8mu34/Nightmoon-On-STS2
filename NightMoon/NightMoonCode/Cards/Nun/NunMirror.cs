@@ -8,16 +8,24 @@ public class NunMirror() : NunCard(0, CardType.Skill, CardRarity.Uncommon, Targe
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var hand = Owner.PlayerCombatState.Hand.Cards;
-        if (hand.Count == 0) return;
+        var playerCombatState = Owner.PlayerCombatState;
+        if (playerCombatState is null || CombatState is null)
+            return;
+
+        var hand = playerCombatState.Hand.Cards;
+        if (hand.Count == 0)
+            return;
 
         var leftmost = hand[0];
         var clone = CombatState.CloneCard(leftmost);
+        if (IsUpgraded)
+            clone.SetToFreeThisTurn();
+
         await CardPileCmd.Add(clone, PileType.Hand, CardPilePosition.Bottom, this, false);
     }
 
     protected override void OnUpgrade()
     {
-        // 升级：添加保留
+        // Upgraded copies cost 0 this turn, matching Discovery's generated-card handling.
     }
 }

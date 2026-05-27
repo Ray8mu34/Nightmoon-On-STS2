@@ -64,13 +64,29 @@ public static class PrayerManager
         }
 
         if (totalTimerDecrements > 0)
-            await NotifyPrayerTimerAdvanced(choiceContext, owner, totalTimerDecrements);
+        {
+            try
+            {
+                await NotifyPrayerTimerAdvanced(choiceContext, owner, totalTimerDecrements);
+            }
+            catch
+            {
+                // swallow to prevent prayer zone from getting stuck
+            }
+        }
 
         foreach (var entry in ready)
         {
             entries.Remove(entry);
-            await NotifyPrayerResolved(choiceContext, owner, entry);
-            await entry.Resolve(choiceContext, owner);
+            try
+            {
+                await NotifyPrayerResolved(choiceContext, owner, entry);
+                await entry.Resolve(choiceContext, owner);
+            }
+            catch
+            {
+                // swallow to prevent prayer zone from getting stuck
+            }
         }
 
         if (entries.Count == 0)

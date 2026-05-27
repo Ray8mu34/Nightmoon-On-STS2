@@ -16,7 +16,11 @@ public class NunDream() : NunCard(1, CardType.Skill, CardRarity.Uncommon, Target
     {
         var card = CreateRandomPrayerCard();
         if (card != null)
+        {
+            card.SetToFreeThisTurn();
+            card.AddKeyword(CardKeyword.Exhaust);
             await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner);
+        }
     }
 
     private CardModel? CreateRandomPrayerCard()

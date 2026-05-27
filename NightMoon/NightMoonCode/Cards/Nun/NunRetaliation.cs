@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -14,15 +15,19 @@ public class NunRetaliation() : NunCard(1, CardType.Attack, CardRarity.Rare, Tar
         new DynamicVar("Cap", 20m)
     ];
 
+    protected override void AddExtraArgsToDescription(LocString description)
+    {
+        base.AddExtraArgsToDescription(description);
+        description.Add("CurrentDamage", CalculateDamage());
+    }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var combatState = Owner.Creature.CombatState;
         if (combatState is null)
             return;
 
-        var lostHp = Owner.Creature.MaxHp - Owner.Creature.CurrentHp;
-        var cap = DynamicVars["Cap"].BaseValue;
-        var damage = Math.Min(lostHp, cap);
+        var damage = CalculateDamage();
 
         await CreatureCmd.Damage(
             choiceContext,
@@ -36,5 +41,15 @@ public class NunRetaliation() : NunCard(1, CardType.Attack, CardRarity.Rare, Tar
     protected override void OnUpgrade()
     {
         DynamicVars["Cap"].UpgradeValueBy(5m);
+    }
+
+    private decimal CalculateDamage()
+    {
+        if (Owner?.Creature is null)
+            return 0m;
+
+        var lostHp = Owner.Creature.MaxHp - Owner.Creature.CurrentHp;
+        var cap = DynamicVars["Cap"].BaseValue;
+        return Math.Min(lostHp, cap);
     }
 }

@@ -1,6 +1,7 @@
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using NightMoon.NightMoonCode.Character;
 using NightMoon.NightMoonCode.Extensions;
@@ -14,4 +15,5 @@ public abstract class NunCard(int cost, CardType type, CardRarity rarity, Target
     public override string CustomPortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigCardImagePath();
     public override string PortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
     public override string BetaPortraitPath => $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
+    public override Material? CreateCustomFrameMaterial => new CanvasItemMaterial();
 }

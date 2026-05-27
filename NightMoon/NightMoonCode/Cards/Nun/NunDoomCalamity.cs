@@ -30,5 +30,6 @@ public class NunDoomCalamity() : NunCard(2, CardType.Power, CardRarity.Rare, Tar
 
     protected override void OnUpgrade()
     {
+        EnergyCost.SetCustomBaseCost(1);
     }
 }

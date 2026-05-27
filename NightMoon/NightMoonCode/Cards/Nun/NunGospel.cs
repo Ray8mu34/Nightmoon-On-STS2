@@ -57,6 +57,8 @@ public class NunGospel() : NunCard(2, CardType.Skill, CardRarity.Uncommon, Targe
             copy.FinalizeUpgradeInternal();
         }
 
+        copy.SetToFreeThisTurn();
+        copy.AddKeyword(CardKeyword.Exhaust);
         return copy;
     }
 

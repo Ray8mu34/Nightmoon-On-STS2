@@ -28,12 +28,11 @@ public class NunDemonBlade() : NunCard(1, CardType.Power, CardRarity.Uncommon, T
             this);
 
         var power = Owner.Creature.GetPower<NunDemonBladePower>();
-        if (power != null && DynamicVars[typeof(NunDemonBladePower).Name].BaseValue > 0)
-            power.AddBonusDamage(DynamicVars[typeof(NunDemonBladePower).Name].BaseValue);
+        power?.SetDivisor(DynamicVars["Divisor"].BaseValue);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars[typeof(NunDemonBladePower).Name].UpgradeValueBy(3m);
+        DynamicVars["Divisor"].UpgradeValueBy(-1m);
     }
 }
